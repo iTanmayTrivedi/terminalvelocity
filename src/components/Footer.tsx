@@ -1,70 +1,72 @@
 import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 export function Footer() {
-  const links = [
-    { name: "github", href: "#" },
-    { name: "x / twitter", href: "#" },
-    { name: "linkedin", href: "#" },
-    { name: "email", href: "mailto:hi@yoshito.dev" },
-  ];
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    const t = () => {
+      const d = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Tokyo", hour12: false });
+      setTime(d + " JST");
+    };
+    t();
+    const id = setInterval(t, 1000);
+    return () => clearInterval(id);
+  }, []);
 
+  const btnRef = useRef<HTMLAnchorElement>(null);
+  const [m, setM] = useState({ x: 0, y: 0 });
   return (
-    <footer id="contact" className="relative overflow-hidden px-6 pt-32 pb-10 md:px-14">
-      <div className="mx-auto max-w-7xl">
+    <footer id="contact" className="relative overflow-hidden bg-ink pt-32 pb-12 grain">
+      <div className="absolute inset-0 noise-grid opacity-30" />
+      <div className="aurora pointer-events-none absolute -bottom-60 left-1/2 h-[700px] w-[700px] -translate-x-1/2 rounded-full" />
+
+      <div className="relative mx-auto max-w-7xl px-6 md:px-12">
+        <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">/ 04 — contact</p>
+
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif text-glow text-[14vw] leading-none md:text-[11rem]"
+          transition={{ duration: 0.9 }}
+          className="mt-6 font-display text-[14vw] leading-[0.9] text-bone md:text-[10vw]"
         >
-          Let's build
-        </motion.h2>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="-mt-4 text-right font-serif italic text-[14vw] leading-none text-ink/80 md:text-[11rem]"
-        >
-          something.
+          let's <span className="italic text-stroke-acid">build</span>
+          <br />
+          something <span className="italic">loud</span>.
         </motion.h2>
 
-        <div className="mt-20 flex flex-col gap-12 border-t border-ink/20 pt-10 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-ink/60">
-              available q3 2026
-            </p>
-            <a
-              href="mailto:hi@yoshito.dev"
-              data-cursor="hover"
-              data-cursor-label="mail"
-              className="mt-3 inline-block font-serif text-3xl text-ink underline-offset-8 hover:underline md:text-4xl"
-            >
-              hi@yoshito.dev
-            </a>
-          </div>
+        <div className="mt-16 flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
+          <a
+            ref={btnRef}
+            href="mailto:hi@yoshito.dev"
+            data-cursor data-cursor-label="send"
+            onMouseMove={(e) => {
+              const r = btnRef.current!.getBoundingClientRect();
+              setM({ x: (e.clientX - r.left - r.width / 2) * 0.3, y: (e.clientY - r.top - r.height / 2) * 0.3 });
+            }}
+            onMouseLeave={() => setM({ x: 0, y: 0 })}
+            className="group relative inline-flex items-center gap-4 border border-acid bg-acid px-10 py-6 font-mono text-sm uppercase tracking-[0.3em] text-ink transition-all hover:bg-transparent hover:text-acid"
+            style={{ transform: `translate(${m.x}px, ${m.y}px)` }}
+          >
+            <span className="h-2 w-2 rounded-full bg-ink group-hover:bg-acid pulse-glow" />
+            hi@yoshito.dev
+            <motion.span animate={{ x: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }}>→</motion.span>
+          </a>
 
-          <ul className="grid grid-cols-2 gap-x-10 gap-y-3 font-mono text-[11px] uppercase tracking-[0.3em]">
-            {links.map((l) => (
-              <li key={l.name}>
-                <a
-                  href={l.href}
-                  data-cursor="hover"
-                  data-cursor-label="open"
-                  className="group relative inline-block py-1 text-ink/70 transition-colors hover:text-ink"
-                >
-                  {l.name}
-                  <span className="absolute bottom-0 left-0 h-px w-0 bg-ink transition-all duration-500 group-hover:w-full" />
-                </a>
-              </li>
+          <div className="flex flex-wrap gap-6 font-mono text-[11px] uppercase tracking-[0.3em] text-bone/60">
+            {["github", "x.com", "are.na", "linkedin"].map((s) => (
+              <a key={s} href="#" data-cursor data-cursor-label="open" className="story-link hover:text-acid">{s} →</a>
             ))}
-          </ul>
+          </div>
         </div>
 
-        <div className="mt-20 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.3em] text-ink/50">
-          <span>© 2026 yoshito</span>
-          <span>東京 ・ tokyo, jp</span>
+        <div className="mt-24 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-bone/40 md:flex-row md:items-center">
+          <span>© 2026 yoshito tanaka · all systems nominal</span>
+          <span className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-acid blink" />
+            tokyo · {time}
+          </span>
+          <span>built with care · not by ai*</span>
         </div>
       </div>
     </footer>
