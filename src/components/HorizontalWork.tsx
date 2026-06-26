@@ -1,25 +1,131 @@
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { PROJECTS } from "@/lib/projects";
 
-export function HorizontalWork() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
-  // Travel distance: total inner width minus one viewport.
-  // 4 cards * 70vw + 3 * 2rem gap + 10vw left pad = ~290vw. Move ~-190vw to reveal last card.
-  const xRaw = useTransform(scrollYProgress, [0, 1], ["0vw", "-198vw"]);
+function normalizeWheelDelta(event: WheelEvent) {
+  const rawDelta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+  if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) return rawDelta * 18;
+  if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) return rawDelta * window.innerHeight;
+  return rawDelta;
+}
+
+export function HorizontalWork() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const touchPointRef = useRef({ x: 0, y: 0 });
+  const [maxTravel, setMaxTravel] = useState(1);
+  const railProgress = useMotionValue(0);
+
+  const xRaw = useTransform(railProgress, (value) => -value * maxTravel);
   const x = useSpring(xRaw, { stiffness: 120, damping: 26, mass: 0.4 });
 
-  const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const counter = useTransform(scrollYProgress, (v) =>
+  const progress = useTransform(railProgress, [0, 1], ["0%", "100%"]);
+  const counter = useTransform(railProgress, (v) =>
     String(Math.min(PROJECTS.length, Math.floor(v * PROJECTS.length) + 1)).padStart(2, "0"),
   );
 
+  useEffect(() => {
+    const updateTravel = () => {
+      const track = trackRef.current;
+      const viewport = viewportRef.current;
+      if (!track || !viewport) return;
+
+      setMaxTravel(Math.max(track.scrollWidth - viewport.clientWidth, viewport.clientWidth));
+    };
+
+    updateTravel();
+    window.addEventListener("resize", updateTravel);
+
+    const observer = new ResizeObserver(updateTravel);
+    if (trackRef.current) observer.observe(trackRef.current);
+    if (viewportRef.current) observer.observe(viewportRef.current);
+
+    return () => {
+      window.removeEventListener("resize", updateTravel);
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const getLockState = (delta: number) => {
+      const section = sectionRef.current;
+      if (!section) return null;
+
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const movingDownIntoWork = delta > 0 && rect.top <= 24 && rect.bottom > viewportHeight * 0.55;
+      const movingUpIntoWork = delta < 0 && rect.bottom >= viewportHeight - 24 && rect.top < viewportHeight * 0.45;
+      const pinned = rect.top <= 1 && rect.bottom >= viewportHeight - 1;
+
+      if (!movingDownIntoWork && !movingUpIntoWork && !pinned) return null;
+
+      const current = railProgress.get();
+      const atStart = current <= 0.001;
+      const atEnd = current >= 0.999;
+      const shouldRelease = (delta < 0 && atStart) || (delta > 0 && atEnd);
+
+      return { section, current, shouldRelease };
+    };
+
+    const moveRail = (delta: number) => {
+      const state = getLockState(delta);
+      if (!state) return false;
+
+      if (state.shouldRelease) {
+        railProgress.set(delta > 0 ? 1 : 0);
+        return false;
+      }
+
+      const sectionTop = window.scrollY + state.section.getBoundingClientRect().top;
+      window.scrollTo(0, sectionTop);
+      railProgress.set(clamp(state.current + delta / Math.max(maxTravel, window.innerWidth), 0, 1));
+      return true;
+    };
+
+    const handleWheel = (event: WheelEvent) => {
+      const delta = normalizeWheelDelta(event);
+      if (Math.abs(delta) < 1) return;
+
+      if (moveRail(delta)) event.preventDefault();
+    };
+
+    const handleTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      touchPointRef.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+
+      const deltaX = touchPointRef.current.x - touch.clientX;
+      const deltaY = touchPointRef.current.y - touch.clientY;
+      const delta = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY;
+      touchPointRef.current = { x: touch.clientX, y: touch.clientY };
+
+      if (Math.abs(delta) < 1) return;
+      if (moveRail(delta * 2.4)) event.preventDefault();
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [maxTravel, railProgress]);
+
   return (
-    <section ref={ref} id="work" className="relative h-[420vh] bg-ink">
-      <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+    <section ref={sectionRef} id="work" className="relative h-screen bg-ink">
+      <div ref={viewportRef} className="sticky top-0 flex h-screen touch-pan-x flex-col overflow-hidden overscroll-contain">
         {/* Section header — sits above the sticky panel, fades with progress */}
         <div className="pointer-events-none absolute left-6 top-24 z-20 md:left-12">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">
@@ -46,7 +152,7 @@ export function HorizontalWork() {
 
         {/* Horizontal track */}
         <div className="flex h-full items-center">
-          <motion.div style={{ x }} className="flex gap-8 pl-[10vw] pr-[10vw] will-change-transform">
+          <motion.div ref={trackRef} style={{ x }} className="flex gap-8 pl-[10vw] pr-[10vw] will-change-transform">
             {PROJECTS.map((p) => (
               <motion.article
                 key={p.slug}
