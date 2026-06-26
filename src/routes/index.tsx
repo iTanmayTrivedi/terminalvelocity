@@ -7,6 +7,7 @@ import { MarqueeStrip } from "@/components/MarqueeStrip";
 import { StackOrbit } from "@/components/StackOrbit";
 import { HorizontalWork } from "@/components/HorizontalWork";
 import { LabSection } from "@/components/LabSection";
+import { Manifesto } from "@/components/Manifesto";
 import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
@@ -32,6 +33,7 @@ function Index() {
       <StackOrbit />
       <MarqueeStrip reverse accent />
       <HorizontalWork />
+      <Manifesto />
       <LabSection />
       <Footer />
     </main>
