@@ -5,7 +5,7 @@ import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { getProject, getNextProject, PROJECTS } from "@/lib/projects";
+import { getProject, getNextProject, PROJECTS, type Project } from "@/lib/projects";
 
 export const Route = createFileRoute("/work/$slug")({
   loader: ({ params }) => {
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/work/$slug")({
 });
 
 function CaseStudy() {
-  const { project: p, next } = Route.useLoaderData();
+  const { project: p, next } = Route.useLoaderData() as { project: Project; next: Project };
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 240]);
