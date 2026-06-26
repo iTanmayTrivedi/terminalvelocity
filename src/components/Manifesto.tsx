@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 
 const WORDS =
@@ -6,9 +6,21 @@ const WORDS =
     " ",
   );
 
+function Word({ progress, i, total, children }: { progress: MotionValue<number>; i: number; total: number; children: string }) {
+  const start = i / total;
+  const end = start + 1.4 / total;
+  const op = useTransform(progress, [start, end], [0.15, 1]);
+  const y = useTransform(progress, [start, end], [8, 0]);
+  return (
+    <motion.span style={{ opacity: op, y }} className="mr-[0.25em] inline-block">
+      {children}
+    </motion.span>
+  );
+}
+
 export function Manifesto() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.8", "end 0.4"] });
   const bgX = useTransform(scrollYProgress, [0, 1], ["-30%", "30%"]);
   const rot = useTransform(scrollYProgress, [0, 1], [-4, 4]);
 
@@ -26,16 +38,11 @@ export function Manifesto() {
           / interlude — doctrine
         </p>
         <p className="font-display text-3xl leading-snug text-bone md:text-6xl">
-          {WORDS.map((w, i) => {
-            const start = i / WORDS.length;
-            const end = start + 1.4 / WORDS.length;
-            const op = useTransform(scrollYProgress, [start, end], [0.15, 1]);
-            return (
-              <motion.span key={i} style={{ opacity: op }} className="mr-[0.25em] inline-block">
-                {w}
-              </motion.span>
-            );
-          })}
+          {WORDS.map((w, i) => (
+            <Word key={i} progress={scrollYProgress} i={i} total={WORDS.length}>
+              {w}
+            </Word>
+          ))}
         </p>
       </div>
     </section>
