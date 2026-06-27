@@ -60,6 +60,7 @@ export function HorizontalWork() {
   }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
     const getLockState = (delta: number) => {
       const section = sectionRef.current;
       if (!section) return null;
