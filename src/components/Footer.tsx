@@ -16,11 +16,11 @@ export function Footer() {
   const btnRef = useRef<HTMLAnchorElement>(null);
   const [m, setM] = useState({ x: 0, y: 0 });
   return (
-    <footer id="contact" className="relative overflow-hidden bg-ink pt-32 pb-12 grain">
+    <footer id="contact" className="relative overflow-hidden bg-ink pt-24 pb-10 grain md:pt-32 md:pb-12">
       <div className="absolute inset-0 noise-grid opacity-30" />
-      <div className="aurora pointer-events-none absolute -bottom-60 left-1/2 h-[700px] w-[700px] -translate-x-1/2 rounded-full" />
+      <div className="aurora pointer-events-none absolute -bottom-60 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full md:h-[700px] md:w-[700px]" />
 
-      <div className="relative mx-auto max-w-7xl px-6 md:px-12">
+      <div className="relative mx-auto max-w-7xl px-5 md:px-12">
         <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">/ 04 — contact</p>
 
         <motion.h2
@@ -28,14 +28,14 @@ export function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="mt-6 font-display text-[14vw] leading-[0.9] text-bone md:text-[10vw]"
+          className="mt-5 font-display text-[16vw] leading-[0.9] text-bone md:mt-6 md:text-[10vw]"
         >
           let's <span className="italic text-stroke-acid">build</span>
           <br />
           something <span className="italic">loud</span>.
         </motion.h2>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
+        <div className="mt-12 flex flex-col items-start justify-between gap-8 md:mt-16 md:flex-row md:items-end md:gap-10">
           <a
             ref={btnRef}
             href="mailto:hi@yoshito.dev"
@@ -45,11 +45,11 @@ export function Footer() {
               setM({ x: (e.clientX - r.left - r.width / 2) * 0.3, y: (e.clientY - r.top - r.height / 2) * 0.3 });
             }}
             onMouseLeave={() => setM({ x: 0, y: 0 })}
-            className="group relative inline-flex items-center gap-4 border border-acid bg-acid px-10 py-6 font-mono text-sm uppercase tracking-[0.3em] text-ink transition-all hover:bg-transparent hover:text-acid"
+            className="group relative inline-flex max-w-full items-center gap-3 border border-acid bg-acid px-6 py-5 font-mono text-xs uppercase tracking-[0.25em] text-ink transition-all hover:bg-transparent hover:text-acid md:gap-4 md:px-10 md:py-6 md:text-sm md:tracking-[0.3em]"
             style={{ transform: `translate(${m.x}px, ${m.y}px)` }}
           >
-            <span className="h-2 w-2 rounded-full bg-ink group-hover:bg-acid pulse-glow" />
-            hi@yoshito.dev
+            <span className="h-2 w-2 shrink-0 rounded-full bg-ink group-hover:bg-acid pulse-glow" />
+            <span className="truncate">hi@yoshito.dev</span>
             <motion.span animate={{ x: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }}>→</motion.span>
           </a>
 
