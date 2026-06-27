@@ -66,8 +66,11 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
-    cursor: none;
     overflow-x: hidden;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    html, body { cursor: none; }
+    a, button, [data-cursor="hover"] { cursor: none; }
   }
   ::selection { background: var(--acid); color: var(--ink); }
   ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -203,4 +206,4 @@
   animation: shimmer 4s linear infinite;
 }
 
-a, button, [data-cursor="hover"] { cursor: none; }
+

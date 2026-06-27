@@ -18,7 +18,16 @@ export function HorizontalWork() {
   const trackRef = useRef<HTMLDivElement>(null);
   const touchPointRef = useRef({ x: 0, y: 0 });
   const [maxTravel, setMaxTravel] = useState(1);
+  const [isDesktop, setIsDesktop] = useState(true);
   const railProgress = useMotionValue(0);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px) and (hover: hover)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const xRaw = useTransform(railProgress, (value) => -value * maxTravel);
   const x = useSpring(xRaw, { stiffness: 120, damping: 26, mass: 0.4 });
@@ -51,6 +60,7 @@ export function HorizontalWork() {
   }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
     const getLockState = (delta: number) => {
       const section = sectionRef.current;
       if (!section) return null;
@@ -118,7 +128,56 @@ export function HorizontalWork() {
       document.removeEventListener("touchstart", handleTouchStart, { capture: true });
       document.removeEventListener("touchmove", handleTouchMove, { capture: true });
     };
-  }, [maxTravel, railProgress]);
+  }, [isDesktop, maxTravel, railProgress]);
+
+  // Mobile: vertical stack with snap — no scroll-jacking.
+  if (!isDesktop) {
+    return (
+      <section id="work" className="relative bg-ink px-5 pt-28 pb-20">
+        <div className="mb-10">
+          <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">
+            / 02 — selected work
+          </p>
+          <h2 className="mt-3 font-display text-5xl text-bone">
+            things <span className="italic">shipped</span>.
+          </h2>
+        </div>
+        <div className="flex flex-col gap-6">
+          {PROJECTS.map((p, i) => (
+            <motion.article
+              key={p.slug}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.05 }}
+              className="group relative h-[68vh] min-h-[420px] w-full overflow-hidden border border-border bg-card"
+            >
+              <Link to="/work/$slug" params={{ slug: p.slug }} className="absolute inset-0 z-30" aria-label={`Open case: ${p.t}`} />
+              <img src={p.img} alt={p.t} className="absolute inset-0 h-full w-full object-cover grayscale" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent" />
+              <div className="scanlines pointer-events-none absolute inset-0 opacity-30" />
+              <div className="relative z-10 flex h-full flex-col justify-between p-6">
+                <div className="flex items-start justify-between">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.4em]" style={{ color: `var(--${p.c})` }}>
+                    project · {p.n}
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-bone/50">{p.tag}</span>
+                </div>
+                <div>
+                  <h3 className="font-display text-5xl leading-[0.9] text-bone">{p.t}</h3>
+                  <p className="mt-3 font-mono text-[11px] text-bone/70">{p.d}</p>
+                  <div className="mt-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.4em]" style={{ color: `var(--${p.c})` }}>
+                    <span>read case</span>
+                    <motion.span animate={{ x: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }}>→</motion.span>
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section ref={sectionRef} id="work" className="relative h-screen bg-ink">

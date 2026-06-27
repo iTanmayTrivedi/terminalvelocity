@@ -46,37 +46,37 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={ref} id="top" className="relative h-[110vh] overflow-hidden bg-ink grain">
+    <section ref={ref} id="top" className="relative h-[100svh] min-h-[640px] overflow-hidden bg-ink grain md:h-[110vh]">
       <div className="absolute inset-0 noise-grid opacity-60" />
       <CodeRain opacity={0.22} />
       <motion.div
         style={{ rotate: rot }}
-        className="aurora pointer-events-none absolute -left-40 top-1/3 h-[600px] w-[600px] rounded-full"
+        className="aurora pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full md:h-[600px] md:w-[600px]"
       />
       <motion.div
         style={{ rotate: useTransform(scrollYProgress, [0, 1], [0, 30]) }}
-        className="aurora pointer-events-none absolute -right-40 -top-20 h-[500px] w-[500px] rounded-full"
+        className="aurora pointer-events-none absolute -right-40 -top-20 h-[360px] w-[360px] rounded-full md:h-[500px] md:w-[500px]"
       />
 
       {/* Giant outlined name */}
       <motion.div
         style={{ y, scale, opacity: op }}
-        className="absolute inset-0 flex flex-col items-center justify-center"
+        className="absolute inset-0 flex flex-col items-center justify-center px-4"
       >
         <div className="relative z-10 text-center">
-          <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.5em] text-acid">
+          <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.4em] text-acid md:mb-6 md:text-[10px] md:tracking-[0.5em]">
             <span className="blink">●</span>  portfolio / v.2026.06
           </p>
           <h1
             data-text={NAME}
-            className="glitch font-display text-[20vw] leading-[0.85] tracking-tighter text-bone md:text-[16vw]"
+            className="glitch font-display text-[22vw] leading-[0.85] tracking-tighter text-bone md:text-[16vw]"
           >
             {NAME}
           </h1>
-          <h1 className="-mt-4 font-display text-[20vw] leading-[0.85] tracking-tighter text-stroke-acid md:text-[16vw]">
+          <h1 className="-mt-2 font-display text-[22vw] leading-[0.85] tracking-tighter text-stroke-acid md:-mt-4 md:text-[16vw]">
             {SUB}
           </h1>
-          <p className="mt-6 font-mono text-xs uppercase tracking-[0.4em] text-bone/70">
+          <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.3em] text-bone/70 md:mt-6 md:text-xs md:tracking-[0.4em]">
             full-stack engineer · tokyo · 東京
           </p>
         </div>
@@ -88,7 +88,7 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 1 }}
         style={{ y: useTransform(scrollYProgress, [0, 1], [0, -200]) }}
-        className="absolute bottom-24 left-6 z-20 w-[340px] max-w-[80vw] rounded border border-cyber/40 bg-ink/80 p-4 font-mono text-[11px] text-bone/90 shadow-[0_0_60px_oklch(0.78_0.18_200/0.3)] backdrop-blur md:left-12"
+        className="absolute bottom-20 left-4 right-4 z-20 mx-auto w-auto max-w-[420px] rounded border border-cyber/40 bg-ink/80 p-3 font-mono text-[10px] text-bone/90 shadow-[0_0_60px_oklch(0.78_0.18_200/0.3)] backdrop-blur md:bottom-24 md:left-12 md:right-auto md:w-[340px] md:p-4 md:text-[11px]"
         data-cursor data-cursor-label="exec"
       >
         <div className="mb-3 flex items-center gap-2 border-b border-cyber/20 pb-2">
@@ -123,7 +123,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.4em] text-bone/60"
+        className="absolute bottom-3 left-1/2 z-20 hidden -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.4em] text-bone/60 md:bottom-6 md:block"
       >
         <div className="flex flex-col items-center gap-2">
           <span>scroll · スクロール</span>
