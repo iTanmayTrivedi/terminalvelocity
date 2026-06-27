@@ -62,16 +62,16 @@ export function StackOrbit() {
           </div>
         </motion.div>
 
-        <div className="mt-24 grid gap-6 md:grid-cols-3">
+        <div className="mt-16 grid grid-cols-2 gap-5 md:mt-24 md:grid-cols-3 md:gap-6">
           {[
             { k: "deployed", v: "243", u: "production apps" },
             { k: "uptime", v: "99.98%", u: "last 12 months" },
             { k: "coffee", v: "∞", u: "cups consumed" },
-          ].map((s) => (
-            <div key={s.k} className="border-t border-border pt-6">
+          ].map((s, i) => (
+            <div key={s.k} className={`border-t border-border pt-5 md:pt-6 ${i === 2 ? "col-span-2 md:col-span-1" : ""}`}>
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-bone/40">{s.k}</p>
-              <p className="mt-3 font-display text-6xl text-acid">{s.v}</p>
-              <p className="mt-1 font-mono text-xs text-bone/60">{s.u}</p>
+              <p className="mt-3 font-display text-5xl text-acid md:text-6xl">{s.v}</p>
+              <p className="mt-1 font-mono text-[11px] text-bone/60 md:text-xs">{s.u}</p>
             </div>
           ))}
         </div>
