@@ -18,7 +18,16 @@ export function HorizontalWork() {
   const trackRef = useRef<HTMLDivElement>(null);
   const touchPointRef = useRef({ x: 0, y: 0 });
   const [maxTravel, setMaxTravel] = useState(1);
+  const [isDesktop, setIsDesktop] = useState(true);
   const railProgress = useMotionValue(0);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px) and (hover: hover)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const xRaw = useTransform(railProgress, (value) => -value * maxTravel);
   const x = useSpring(xRaw, { stiffness: 120, damping: 26, mass: 0.4 });
