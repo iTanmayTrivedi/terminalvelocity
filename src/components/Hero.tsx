@@ -88,7 +88,7 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 1 }}
         style={{ y: useTransform(scrollYProgress, [0, 1], [0, -200]) }}
-        className="absolute bottom-24 left-6 z-20 w-[340px] max-w-[80vw] rounded border border-cyber/40 bg-ink/80 p-4 font-mono text-[11px] text-bone/90 shadow-[0_0_60px_oklch(0.78_0.18_200/0.3)] backdrop-blur md:left-12"
+        className="absolute bottom-20 left-4 right-4 z-20 mx-auto w-auto max-w-[420px] rounded border border-cyber/40 bg-ink/80 p-3 font-mono text-[10px] text-bone/90 shadow-[0_0_60px_oklch(0.78_0.18_200/0.3)] backdrop-blur md:bottom-24 md:left-12 md:right-auto md:w-[340px] md:p-4 md:text-[11px]"
         data-cursor data-cursor-label="exec"
       >
         <div className="mb-3 flex items-center gap-2 border-b border-cyber/20 pb-2">
