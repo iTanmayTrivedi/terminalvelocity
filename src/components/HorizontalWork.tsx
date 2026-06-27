@@ -56,32 +56,26 @@ export function HorizontalWork() {
       if (!section) return null;
 
       const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const movingDownIntoWork = delta > 0 && rect.top <= 24 && rect.bottom > viewportHeight * 0.55;
-      const movingUpIntoWork = delta < 0 && rect.bottom >= viewportHeight - 24 && rect.top < viewportHeight * 0.45;
-      const pinned = rect.top <= 1 && rect.bottom >= viewportHeight - 1;
-
-      if (!movingDownIntoWork && !movingUpIntoWork && !pinned) return null;
+      const vh = window.innerHeight;
+      // Only lock when the section is essentially pinned in the viewport.
+      const pinned = rect.top <= 2 && rect.bottom >= vh - 2;
+      if (!pinned) return null;
 
       const current = railProgress.get();
-      const atStart = current <= 0.001;
-      const atEnd = current >= 0.999;
-      const shouldRelease = (delta < 0 && atStart) || (delta > 0 && atEnd);
+      const atStart = current <= 0.0005;
+      const atEnd = current >= 0.9995;
+      // At an edge and trying to scroll past it → release.
+      if ((delta < 0 && atStart) || (delta > 0 && atEnd)) return { release: true as const };
 
-      return { section, current, shouldRelease };
+      return { release: false as const, section, current };
     };
 
     const moveRail = (delta: number) => {
       const state = getLockState(delta);
-      if (!state) return false;
-
-      if (state.shouldRelease) {
-        railProgress.set(delta > 0 ? 1 : 0);
-        return false;
-      }
+      if (!state || state.release) return false;
 
       const sectionTop = window.scrollY + state.section.getBoundingClientRect().top;
-      window.scrollTo(0, sectionTop);
+      if (Math.abs(window.scrollY - sectionTop) > 0.5) window.scrollTo(0, sectionTop);
       railProgress.set(clamp(state.current + delta / Math.max(maxTravel, window.innerWidth), 0, 1));
       return true;
     };
