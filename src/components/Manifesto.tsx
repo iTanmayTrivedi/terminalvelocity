@@ -25,7 +25,7 @@ export function Manifesto() {
   const rot = useTransform(scrollYProgress, [0, 1], [-4, 4]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-ink py-40">
+    <section ref={ref} className="relative overflow-hidden bg-ink py-28 md:py-40">
       <motion.div
         style={{ x: bgX, rotate: rot }}
         className="pointer-events-none absolute -left-20 top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[24vw] leading-none text-bone/[0.04]"
@@ -33,11 +33,11 @@ export function Manifesto() {
         信念 · doctrine
       </motion.div>
 
-      <div className="relative mx-auto max-w-6xl px-6 md:px-12">
-        <p className="mb-12 font-mono text-[10px] uppercase tracking-[0.4em] text-acid">
+      <div className="relative mx-auto max-w-6xl px-5 md:px-12">
+        <p className="mb-8 font-mono text-[10px] uppercase tracking-[0.4em] text-acid md:mb-12">
           / interlude — doctrine
         </p>
-        <p className="font-display text-3xl leading-snug text-bone md:text-6xl">
+        <p className="font-display text-2xl leading-snug text-bone sm:text-3xl md:text-6xl">
           {WORDS.map((w, i) => (
             <Word key={i} progress={scrollYProgress} i={i} total={WORDS.length}>
               {w}
