@@ -123,7 +123,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.4em] text-bone/60"
+        className="absolute bottom-3 left-1/2 z-20 hidden -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.4em] text-bone/60 md:bottom-6 md:block"
       >
         <div className="flex flex-col items-center gap-2">
           <span>scroll · スクロール</span>
