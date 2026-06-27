@@ -57,9 +57,13 @@ export function HorizontalWork() {
 
       const rect = section.getBoundingClientRect();
       const vh = window.innerHeight;
-      // Only lock when the section is essentially pinned in the viewport.
-      const pinned = rect.top <= 2 && rect.bottom >= vh - 2;
-      if (!pinned) return null;
+      const sectionTop = window.scrollY + rect.top;
+      const currentY = window.scrollY;
+      const nearSection = currentY >= sectionTop - 4 && currentY <= sectionTop + 4;
+      const enteringFromAbove = delta > 0 && rect.top > 0 && rect.top < vh * 0.55;
+      const enteringFromBelow = delta < 0 && rect.bottom > vh * 0.45 && rect.bottom < vh;
+
+      if (!nearSection && !enteringFromAbove && !enteringFromBelow) return null;
 
       const current = railProgress.get();
       const atStart = current <= 0.0005;
@@ -67,15 +71,14 @@ export function HorizontalWork() {
       // At an edge and trying to scroll past it → release.
       if ((delta < 0 && atStart) || (delta > 0 && atEnd)) return { release: true as const };
 
-      return { release: false as const, section, current };
+      return { release: false as const, sectionTop, current };
     };
 
     const moveRail = (delta: number) => {
       const state = getLockState(delta);
       if (!state || state.release) return false;
 
-      const sectionTop = window.scrollY + state.section.getBoundingClientRect().top;
-      if (Math.abs(window.scrollY - sectionTop) > 0.5) window.scrollTo(0, sectionTop);
+      if (Math.abs(window.scrollY - state.sectionTop) > 0.5) window.scrollTo(0, state.sectionTop);
       railProgress.set(clamp(state.current + delta / Math.max(maxTravel, window.innerWidth), 0, 1));
       return true;
     };
@@ -106,20 +109,20 @@ export function HorizontalWork() {
       if (moveRail(delta * 2.4)) event.preventDefault();
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    document.addEventListener("wheel", handleWheel, { capture: true, passive: false });
+    document.addEventListener("touchstart", handleTouchStart, { capture: true, passive: true });
+    document.addEventListener("touchmove", handleTouchMove, { capture: true, passive: false });
 
     return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("wheel", handleWheel, { capture: true });
+      document.removeEventListener("touchstart", handleTouchStart, { capture: true });
+      document.removeEventListener("touchmove", handleTouchMove, { capture: true });
     };
   }, [maxTravel, railProgress]);
 
   return (
     <section ref={sectionRef} id="work" className="relative h-screen bg-ink">
-      <div ref={viewportRef} className="sticky top-0 flex h-screen touch-pan-x flex-col overflow-hidden overscroll-contain">
+      <div ref={viewportRef} className="sticky top-0 flex h-screen touch-pan-x flex-col overflow-hidden">
         {/* Section header — sits above the sticky panel, fades with progress */}
         <div className="pointer-events-none absolute left-6 top-24 z-20 md:left-12">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">
