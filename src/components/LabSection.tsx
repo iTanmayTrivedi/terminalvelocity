@@ -13,15 +13,15 @@ export function LabSection() {
   const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
 
   return (
-    <section ref={ref} id="lab" className="relative overflow-hidden bg-bone py-32 text-ink">
+    <section ref={ref} id="lab" className="relative overflow-hidden bg-bone py-24 text-ink md:py-32">
       <motion.div style={{ y }} className="absolute -right-32 top-20 font-display text-[18vw] leading-none text-ink/[0.04]">
         ラボ
       </motion.div>
 
-      <div className="relative mx-auto max-w-7xl px-6 md:px-12">
-        <div className="mb-16">
-          <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.4em] text-blood">/ 03 — lab</p>
-          <h2 className="font-display text-6xl md:text-8xl">
+      <div className="relative mx-auto max-w-7xl px-5 md:px-12">
+        <div className="mb-12 md:mb-16">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.4em] text-blood md:mb-4">/ 03 — lab</p>
+          <h2 className="font-display text-5xl md:text-8xl">
             late-night <span className="italic">experiments</span>.
           </h2>
         </div>
