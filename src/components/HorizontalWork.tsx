@@ -2,6 +2,9 @@ import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { PROJECTS } from "@/lib/projects";
+import { TiltCard } from "./TiltCard";
+import { ScrambleText } from "./ScrambleText";
+import { sfx } from "@/lib/sfx";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
