@@ -157,6 +157,20 @@
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
             mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   }
+  .mask-wipe-up {
+    -webkit-mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
+            mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
+  }
+}
+
+/* Konami / rave-mode: hue-rotate the whole page */
+.rave-mode {
+  animation: rave-hue 3s linear infinite;
+}
+.rave-mode .aurora { filter: blur(60px) saturate(2); opacity: 0.85; }
+@keyframes rave-hue {
+  0% { filter: hue-rotate(0deg) saturate(1.4); }
+  100% { filter: hue-rotate(360deg) saturate(1.4); }
 }
 
 @keyframes marquee {
