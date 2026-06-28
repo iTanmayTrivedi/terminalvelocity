@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
+import { sfx } from "@/lib/sfx";
 
 export function CustomCursor() {
   const x = useMotionValue(-100);
@@ -11,16 +12,22 @@ export function CustomCursor() {
   const [hover, setHover] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
   const [down, setDown] = useState(false);
+  const lastHoverRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
       const el = (e.target as HTMLElement | null)?.closest('[data-cursor]') as HTMLElement | null;
-      if (el) { setHover(true); setLabel(el.getAttribute("data-cursor-label")); }
-      else { setHover(false); setLabel(null); }
+      if (el) {
+        if (lastHoverRef.current !== el) { sfx.play("hover"); lastHoverRef.current = el; }
+        setHover(true); setLabel(el.getAttribute("data-cursor-label"));
+      } else {
+        lastHoverRef.current = null;
+        setHover(false); setLabel(null);
+      }
     };
-    const d = () => setDown(true);
+    const d = () => { setDown(true); sfx.play("click"); };
     const u = () => setDown(false);
     window.addEventListener("mousemove", move);
     window.addEventListener("mousedown", d);
