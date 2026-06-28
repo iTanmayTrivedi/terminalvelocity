@@ -2,6 +2,9 @@ import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { PROJECTS } from "@/lib/projects";
+import { TiltCard } from "./TiltCard";
+import { ScrambleText } from "./ScrambleText";
+import { sfx } from "@/lib/sfx";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
@@ -206,29 +209,36 @@ export function HorizontalWork() {
           <motion.div style={{ width: progress }} className="h-full bg-gradient-to-r from-acid via-cyber to-violet-glow" />
         </div>
 
-        {/* Horizontal track */}
-        <div className="flex h-full items-center">
+        <div className="flex h-full items-center" style={{ perspective: 1400 }}>
           <motion.div ref={trackRef} style={{ x }} className="flex gap-8 pl-[10vw] pr-[10vw] will-change-transform">
             {PROJECTS.map((p) => (
-              <motion.article
+              <TiltCard
                 key={p.slug}
-                whileHover={{ y: -12 }}
-                data-cursor
-                data-cursor-label="case"
+                max={10}
                 className="group relative h-[70vh] w-[70vw] max-w-[760px] flex-shrink-0 overflow-hidden border border-border bg-card"
               >
-                <Link to="/work/$slug" params={{ slug: p.slug }} className="absolute inset-0 z-30" aria-label={`Open case: ${p.t}`} />
+                <Link
+                  to="/work/$slug"
+                  params={{ slug: p.slug }}
+                  data-cursor
+                  data-cursor-label="case"
+                  onMouseEnter={() => sfx.play("hover")}
+                  onClick={() => sfx.play("click")}
+                  className="absolute inset-0 z-30"
+                  aria-label={`Open case: ${p.t}`}
+                />
                 <div className="absolute inset-0 overflow-hidden">
                   <motion.img
                     src={p.img}
                     alt={p.t}
                     className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
+                    style={{ transform: "translateZ(0)" }}
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
                 <div className="scanlines pointer-events-none absolute inset-0 opacity-30" />
 
-                <div className="relative z-10 flex h-full flex-col justify-between p-8 md:p-12">
+                <div className="relative z-10 flex h-full flex-col justify-between p-8 md:p-12" style={{ transform: "translateZ(40px)" }}>
                   <div className="flex items-start justify-between">
                     <span
                       className="font-mono text-[10px] uppercase tracking-[0.4em]"
@@ -241,7 +251,13 @@ export function HorizontalWork() {
                     </span>
                   </div>
                   <div>
-                    <h3 className="font-display text-6xl text-bone md:text-8xl">{p.t}</h3>
+                    <ScrambleText
+                      as="h3"
+                      text={p.t}
+                      trigger="hover"
+                      duration={600}
+                      className="font-display text-6xl text-bone md:text-8xl"
+                    />
                     <p className="mt-3 max-w-md font-mono text-xs text-bone/70">{p.d}</p>
                     <div
                       className="mt-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.4em]"
@@ -254,7 +270,7 @@ export function HorizontalWork() {
                     </div>
                   </div>
                 </div>
-              </motion.article>
+              </TiltCard>
             ))}
           </motion.div>
         </div>

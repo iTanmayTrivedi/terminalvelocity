@@ -25,7 +25,7 @@ export function Manifesto() {
   const rot = useTransform(scrollYProgress, [0, 1], [-4, 4]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-ink py-28 md:py-40">
+    <section ref={ref} id="manifesto" className="relative overflow-hidden bg-ink py-28 md:py-40">
       <motion.div
         style={{ x: bgX, rotate: rot }}
         className="pointer-events-none absolute -left-20 top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[24vw] leading-none text-bone/[0.04]"

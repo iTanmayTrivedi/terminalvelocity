@@ -9,6 +9,8 @@ import { HorizontalWork } from "@/components/HorizontalWork";
 import { LabSection } from "@/components/LabSection";
 import { Manifesto } from "@/components/Manifesto";
 import { Footer } from "@/components/Footer";
+import { EasterEggs } from "@/components/EasterEggs";
+import { SoundToggle } from "@/components/SoundToggle";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,6 +29,8 @@ function Index() {
     <main className="relative bg-ink">
       <CustomCursor />
       <ScrollProgress />
+      <EasterEggs />
+      <SoundToggle />
       <Nav />
       <Hero />
       <MarqueeStrip />
