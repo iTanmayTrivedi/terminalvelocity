@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ElementType } from "react";
 
 const CHARS = "アァカサタナハマヤラ0123456789!@#$%&*<>/\\";
 
@@ -13,7 +13,7 @@ export function ScrambleText({
   className?: string;
   duration?: number;
   trigger?: "view" | "mount" | "hover";
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
 }) {
   const [out, setOut] = useState(trigger === "mount" ? "" : text);
   const ref = useRef<HTMLElement>(null);
