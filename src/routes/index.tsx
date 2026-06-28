@@ -29,6 +29,8 @@ function Index() {
     <main className="relative bg-ink">
       <CustomCursor />
       <ScrollProgress />
+      <EasterEggs />
+      <SoundToggle />
       <Nav />
       <Hero />
       <MarqueeStrip />
