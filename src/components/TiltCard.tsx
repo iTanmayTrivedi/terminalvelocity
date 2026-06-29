@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useRef, type ReactNode, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
+
 
 export function TiltCard({
   children,
@@ -11,6 +12,15 @@ export function TiltCard({
   max?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setEnabled(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 180, damping: 18, mass: 0.4 });
@@ -28,6 +38,10 @@ export function TiltCard({
     my.set((e.clientY - r.top) / r.height - 0.5);
   };
   const onLeave = () => { mx.set(0); my.set(0); };
+
+  if (!enabled) {
+    return <div ref={ref} className={className}>{children}</div>;
+  }
 
   return (
     <motion.div

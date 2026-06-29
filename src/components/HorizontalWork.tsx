@@ -151,9 +151,10 @@ export function HorizontalWork() {
               key={p.slug}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileTap={{ scale: 0.98 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: i * 0.05 }}
-              className="group relative h-[68vh] min-h-[420px] w-full overflow-hidden border border-border bg-card"
+              className="group relative h-[68vh] min-h-[420px] w-full overflow-hidden border border-border bg-card active:border-acid/60"
             >
               <Link to="/work/$slug" params={{ slug: p.slug }} className="absolute inset-0 z-30" aria-label={`Open case: ${p.t}`} />
               <img src={p.img} alt={p.t} className="absolute inset-0 h-full w-full object-cover grayscale" />
