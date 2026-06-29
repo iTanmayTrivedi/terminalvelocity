@@ -29,6 +29,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="relative bg-ink">
+      <LoadingScreen />
       <CustomCursor />
       <ScrollProgress />
       <EasterEggs />
