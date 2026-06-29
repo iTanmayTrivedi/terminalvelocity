@@ -39,6 +39,10 @@ export function TiltCard({
   };
   const onLeave = () => { mx.set(0); my.set(0); };
 
+  if (!enabled) {
+    return <div ref={ref} className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       ref={ref}
