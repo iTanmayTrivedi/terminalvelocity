@@ -1,5 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { TokyoClock } from "./TokyoClock";
+
 
 const links = [
   { l: "00", k: "index", href: "#top" },
@@ -37,10 +39,15 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        <div className="hidden items-center gap-3 md:flex font-mono text-[10px] uppercase tracking-[0.25em] text-bone/60">
-          <span className="h-1.5 w-1.5 rounded-full bg-acid blink" />
-          available · q3 2026
+        <div className="hidden items-center gap-4 md:flex font-mono text-[10px] uppercase tracking-[0.25em] text-bone/60">
+          <TokyoClock className="text-[10px] tracking-[0.2em]" />
+          <span className="h-3 w-px bg-bone/20" />
+          <span className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-acid blink" />
+            available · q3 2026
+          </span>
         </div>
+
 
         {/* Mobile burger */}
         <button
@@ -96,8 +103,9 @@ export function Nav() {
                   <span className="h-1.5 w-1.5 rounded-full bg-acid blink" />
                   available · q3 2026
                 </span>
-                <span>tokyo · 東京</span>
+                <TokyoClock className="text-[10px] tracking-[0.2em]" />
               </div>
+
             </div>
           </motion.div>
         )}
