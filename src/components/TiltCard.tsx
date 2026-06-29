@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useRef, type ReactNode, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
+
 
 export function TiltCard({
   children,
