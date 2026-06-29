@@ -11,6 +11,8 @@ import { Manifesto } from "@/components/Manifesto";
 import { Footer } from "@/components/Footer";
 import { EasterEggs } from "@/components/EasterEggs";
 import { SoundToggle } from "@/components/SoundToggle";
+import { LoadingScreen } from "@/components/LoadingScreen";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
