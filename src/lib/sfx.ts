@@ -55,8 +55,15 @@ function noise(dur: number, vol = 0.4) {
   src.start();
 }
 
+const isTouch = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
 export const sfx = {
   play(v: Voice) {
+    // Hover sounds are noise on touch devices (mouseenter fires on tap).
+    if (v === "hover" && isTouch()) return;
     switch (v) {
       case "hover":  return blip(880, 0.05, "triangle", 200, 0.5);
       case "click":  return blip(1320, 0.08, "square", -400, 0.7);
