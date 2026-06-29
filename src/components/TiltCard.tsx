@@ -29,6 +29,10 @@ export function TiltCard({
   const rotY = useTransform(sx, [-0.5, 0.5], [-max, max]);
   const shineX = useTransform(sx, [-0.5, 0.5], ["0%", "100%"]);
   const shineY = useTransform(sy, [-0.5, 0.5], ["0%", "100%"]);
+  const shineBg = useTransform(
+    [shineX, shineY],
+    ([x, y]) => `radial-gradient(circle at ${x} ${y}, oklch(1 0 0 / 0.18), transparent 45%)`,
+  );
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -54,13 +58,7 @@ export function TiltCard({
       {children}
       <motion.div
         aria-hidden
-        style={{
-          background: useTransform(
-            [shineX, shineY],
-            ([x, y]) =>
-              `radial-gradient(circle at ${x} ${y}, oklch(1 0 0 / 0.18), transparent 45%)`,
-          ),
-        }}
+        style={{ background: shineBg }}
         className="pointer-events-none absolute inset-0 z-20 mix-blend-screen"
       />
     </motion.div>
