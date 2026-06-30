@@ -12,6 +12,7 @@ import { Footer } from "@/components/Footer";
 import { EasterEggs } from "@/components/EasterEggs";
 import { SoundToggle } from "@/components/SoundToggle";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 
 export const Route = createFileRoute("/")({
@@ -30,6 +31,7 @@ function Index() {
   return (
     <main className="relative bg-ink">
       <LoadingScreen />
+      <SmoothScroll />
       <CustomCursor />
       <ScrollProgress />
       <EasterEggs />
