@@ -81,6 +81,8 @@ export function LoadingScreen() {
   }, [visible]);
 
   const pct = Math.floor(progress * 100);
+  const completedBoot = Math.min(bootIdx, BOOT.length);
+  const activeBoot = completedBoot < BOOT.length ? BOOT[completedBoot] : null;
 
   return (
     <AnimatePresence>
@@ -207,7 +209,7 @@ export function LoadingScreen() {
             {/* Progress rail with kana ticks */}
             <div className="relative mt-10 w-[86vw] max-w-[560px]">
               <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.3em] text-bone/40">
-                <span>fragment {bootIdx}/{BOOT.length}</span>
+                <span>fragment {completedBoot}/{BOOT.length}</span>
                 <span className="text-cyber tabular-nums">{pct.toString().padStart(3, "0")} / 100</span>
               </div>
               <div className="relative mt-2 h-[3px] w-full bg-bone/10">
@@ -236,7 +238,7 @@ export function LoadingScreen() {
 
             {/* Boot log */}
             <div className="mt-7 w-[90vw] max-w-[560px] space-y-1 font-mono text-[10px] text-bone/75 md:text-[11px]">
-              {BOOT.slice(0, bootIdx).map((line) => (
+              {BOOT.slice(0, completedBoot).map((line) => (
                 <motion.div
                   key={line.t}
                   initial={{ opacity: 0, x: -8 }}
@@ -250,11 +252,11 @@ export function LoadingScreen() {
                   <span className="ml-auto text-bone/30">ok</span>
                 </motion.div>
               ))}
-              {bootIdx < BOOT.length && (
+              {activeBoot && (
                 <div className="flex items-center gap-3">
-                  <span className="w-7 text-acid/70">[{BOOT[bootIdx].k}]</span>
+                  <span className="w-7 text-acid/70">[{activeBoot.k}]</span>
                   <span className="text-acid blink">▌</span>
-                  <span className="truncate text-bone/80">{BOOT[bootIdx].t}</span>
+                  <span className="truncate text-bone/80">{activeBoot.t}</span>
                   <span className="ml-auto text-bone/30">...</span>
                 </div>
               )}
