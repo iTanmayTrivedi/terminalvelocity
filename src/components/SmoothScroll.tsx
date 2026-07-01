@@ -38,6 +38,7 @@ export function SmoothScroll() {
 
     return () => {
       cancelAnimationFrame(raf);
+      document.removeEventListener("click", onClick);
       lenis.destroy();
     };
   }, []);
