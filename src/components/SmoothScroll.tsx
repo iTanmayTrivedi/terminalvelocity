@@ -6,12 +6,10 @@ export function SmoothScroll() {
 
     let scrollTimer = 0;
     const markScrolling = () => {
-      document.documentElement.classList.add("has-scrolled");
       document.documentElement.classList.add("is-scrolling");
       window.clearTimeout(scrollTimer);
       scrollTimer = window.setTimeout(() => {
         document.documentElement.classList.remove("is-scrolling");
-        if (window.scrollY < 8) document.documentElement.classList.remove("has-scrolled");
       }, 150);
     };
 
@@ -38,7 +36,6 @@ export function SmoothScroll() {
     return () => {
       window.clearTimeout(scrollTimer);
       document.documentElement.classList.remove("is-scrolling");
-      document.documentElement.classList.remove("has-scrolled");
       window.removeEventListener("wheel", markScrolling);
       window.removeEventListener("scroll", markScrolling);
       window.removeEventListener("touchmove", markScrolling);

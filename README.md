@@ -105,7 +105,6 @@ Measured in the live preview after the latest scroll-jank pass, using Chromium a
 - Marquee, glitch, pulse, shimmer, scanline, and glow layers pause or simplify while scrolling.
 - Stack section no longer binds rotation to scroll, removing per-frame transform work at the handoff.
 - Heavy blur layers reduce during scroll, preventing large paint storms over the first viewport.
-- Hero-only canvas/glitch layers are removed from the compositor after the first scroll and restored at the top.
 
 ---
 

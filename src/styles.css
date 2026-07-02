@@ -196,17 +196,6 @@ html.is-scrolling .glitch::after {
   visibility: hidden;
 }
 
-html.has-scrolled .code-rain,
-html.has-scrolled .glitch::before,
-html.has-scrolled .glitch::after {
-  display: none;
-}
-
-html.has-scrolled .aurora {
-  filter: none;
-  opacity: 0.16;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .marquee-track-rev,
