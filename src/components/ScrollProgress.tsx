@@ -2,7 +2,7 @@ import { motion, useScroll, useSpring } from "motion/react";
 
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
-  const sx = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 });
+  const sx = useSpring(scrollYProgress, { stiffness: 90, damping: 28, mass: 0.4 });
   return (
     <motion.div
       style={{ scaleX: sx, transformOrigin: "0 0" }}

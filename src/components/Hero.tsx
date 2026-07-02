@@ -46,10 +46,10 @@ export function Hero() {
 
   return (
     <section ref={ref} id="top" className="relative h-[100svh] min-h-[640px] overflow-hidden bg-ink grain md:h-[110vh]">
-      <div className="absolute inset-0 noise-grid opacity-60" />
+      <div className="absolute inset-0 noise-grid opacity-40" />
       <CodeRain opacity={0.22} />
       <div className="aurora pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full md:h-[600px] md:w-[600px]" />
-      <div className="aurora pointer-events-none absolute -right-40 -top-20 h-[360px] w-[360px] rounded-full md:h-[500px] md:w-[500px]" />
+      <div className="aurora pointer-events-none absolute -right-40 -top-20 hidden h-[360px] w-[360px] rounded-full md:block md:h-[500px] md:w-[500px]" />
 
       {/* Giant outlined name */}
       <motion.div

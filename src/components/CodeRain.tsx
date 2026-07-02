@@ -42,7 +42,7 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
       if (now - last < FRAME) return;
       last = now;
 
-      ctx.fillStyle = "rgba(10, 10, 18, 0.09)";
+      ctx.fillStyle = "rgba(10, 10, 18, 0.14)";
       ctx.fillRect(0, 0, c.width, c.height);
       ctx.font = `${fontSize}px JetBrains Mono, monospace`;
       for (let i = 0; i < drops.length; i++) {
@@ -50,8 +50,8 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
         const y = drops[i] * fontSize;
         ctx.fillStyle = drops[i] < 2 ? "rgba(220,255,210,0.9)" : "rgba(120,255,180,0.5)";
         ctx.fillText(ch, i * fontSize, y);
-        if (y > c.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i] += 0.6;
+        if (y > c.height && Math.random() > 0.982) drops[i] = 0;
+        drops[i] += 0.48;
       }
     };
     raf = requestAnimationFrame(draw);
