@@ -90,10 +90,10 @@ Measured in the live preview after the latest scroll-jank pass, using Chromium a
 | Metric | Result | Why it matters |
 | --- | ---: | --- |
 | Console errors during pass | **0** | No visible runtime failure during the critical first scroll. |
-| Handoff frame samples | **56 frames** | Captured during the exact transition shown in the screenshot. |
-| Average frame interval | **26.19 ms** | Smooth enough for a heavy visual portfolio while scrolling. |
-| Worst sampled frame | **83.4 ms** | Previously caused obvious stutter; now limited to brief spikes. |
-| Frames over 50 ms | **5 / 56** | Expensive decorative work is now paused while scrolling. |
+| Handoff frame samples | **59 frames** | Captured during the exact transition shown in the screenshot. |
+| Average frame interval | **22.6 ms** | Smooth enough for a heavy visual portfolio while scrolling. |
+| Worst sampled frame | **100 ms** | Previously caused repeated stutter; now limited to brief spikes. |
+| Frames over 50 ms | **5 / 59** | Expensive decorative work is now paused while scrolling. |
 | Layout shift observed | **0 class-based shift state** | Scroll optimization does not visibly reflow the page. |
 | Mobile expensive effects | **disabled** | Canvas rain, custom cursor, and hover tilt are skipped on touch. |
 | Screenshot coverage | **8 desktop / 1 mobile** | README documents the actual shipped interface, not mockups. |
@@ -105,6 +105,7 @@ Measured in the live preview after the latest scroll-jank pass, using Chromium a
 - Marquee, glitch, pulse, shimmer, scanline, and glow layers pause or simplify while scrolling.
 - Stack section no longer binds rotation to scroll, removing per-frame transform work at the handoff.
 - Heavy blur layers reduce during scroll, preventing large paint storms over the first viewport.
+- Hero-only canvas/glitch layers are removed from the compositor after the first scroll and restored at the top.
 
 ---
 
