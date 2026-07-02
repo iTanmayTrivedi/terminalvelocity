@@ -11,7 +11,7 @@ export function MarqueeStrip({ reverse = false, accent = false }: { reverse?: bo
           className={`marquee-track ${reverse ? "marquee-track-rev" : ""} font-display text-[8vw] leading-none tracking-tight`}
           style={{ willChange: "transform" }}
         >
-          {[...WORDS, ...WORDS, ...WORDS].map((w, i) => (
+          {[...WORDS, ...WORDS].map((w, i) => (
             <span key={i} className={i % 4 === 1 ? "italic opacity-60" : ""}>{w}</span>
           ))}
         </div>

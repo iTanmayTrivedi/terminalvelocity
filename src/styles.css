@@ -126,6 +126,8 @@
     background: var(--gradient-aurora);
     filter: blur(80px);
     opacity: 0.45;
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   .glitch {
@@ -160,6 +162,30 @@
   .mask-wipe-up {
     -webkit-mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
             mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
+  }
+}
+
+html.is-scrolling .marquee-track,
+html.is-scrolling .glitch::before,
+html.is-scrolling .glitch::after,
+html.is-scrolling .pulse-glow,
+html.is-scrolling .blink,
+html.is-scrolling .spin-slow {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .marquee-track-rev,
+  .float-y,
+  .drift,
+  .spin-slow,
+  .pulse-glow,
+  .blink,
+  .glitch::before,
+  .glitch::after,
+  .shimmer-text {
+    animation: none !important;
   }
 }
 

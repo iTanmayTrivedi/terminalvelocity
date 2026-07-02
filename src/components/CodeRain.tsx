@@ -15,7 +15,7 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (isTouch || reduced) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
     let cols = 0;
     let drops: number[] = [];
     const fontSize = 16 * dpr;
@@ -32,11 +32,13 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
     let raf = 0;
     let last = 0;
     let visible = true;
-    const FRAME = 1000 / 30; // cap at 30fps
+    let scrolling = false;
+    let scrollTimer = 0;
+    const FRAME = 1000 / 24; // decorative canvas: keep it below scroll-critical work
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (!visible) return;
+      if (!visible || scrolling) return;
       if (now - last < FRAME) return;
       last = now;
 
@@ -56,10 +58,17 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
 
     // Pause when offscreen
     const io = new IntersectionObserver(
-      ([e]) => { visible = e.isIntersecting; },
-      { threshold: 0 },
+      ([e]) => { visible = e.isIntersecting && e.intersectionRatio > 0.45; },
+      { threshold: [0, 0.45, 1] },
     );
     io.observe(c);
+
+    const onScroll = () => {
+      scrolling = true;
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => { scrolling = false; }, 140);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     // Pause when tab hidden
     const onVis = () => { visible = !document.hidden; };
@@ -67,7 +76,9 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
 
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(scrollTimer);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScroll);
       document.removeEventListener("visibilitychange", onVis);
       io.disconnect();
     };

@@ -1,5 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 
 const STACK = [
   { n: "TypeScript", c: "cyber" },
@@ -17,12 +16,8 @@ const STACK = [
 ];
 
 export function StackOrbit() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const rot = useTransform(scrollYProgress, [0, 1], [-20, 20]);
-
   return (
-    <section ref={ref} id="stack" className="relative overflow-hidden bg-ink py-24 md:py-32">
+    <section id="stack" className="relative overflow-hidden bg-ink py-24 md:py-32">
       <div className="absolute inset-0 noise-grid opacity-40" />
       <div className="absolute left-1/2 top-1/2 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 aurora opacity-20" />
 
@@ -40,7 +35,7 @@ export function StackOrbit() {
           </p>
         </div>
 
-        <motion.div style={{ rotate: rot }} className="origin-center">
+        <div className="origin-center" style={{ transform: "rotate(-1.5deg)" }}>
           <div className="flex flex-wrap justify-center gap-2 md:gap-4">
             {STACK.map((s, i) => (
               <motion.span
@@ -60,7 +55,7 @@ export function StackOrbit() {
               </motion.span>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         <div className="mt-16 grid grid-cols-2 gap-5 md:mt-24 md:grid-cols-3 md:gap-6">
           {[

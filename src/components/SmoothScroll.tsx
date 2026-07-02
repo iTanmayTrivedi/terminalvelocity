@@ -3,15 +3,38 @@ import Lenis from "lenis";
 
 export function SmoothScroll() {
   useEffect(() => {
-    // Skip on touch devices — native momentum is better
     if (typeof window === "undefined") return;
-    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let scrollTimer = 0;
+    const markScrolling = () => {
+      document.documentElement.classList.add("is-scrolling");
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        document.documentElement.classList.remove("is-scrolling");
+      }, 150);
+    };
+
+    window.addEventListener("wheel", markScrolling, { passive: true });
+    window.addEventListener("scroll", markScrolling, { passive: true });
+    window.addEventListener("touchmove", markScrolling, { passive: true });
+
+    // Skip Lenis on touch/reduced-motion — native momentum is better
+    const skipLenis = window.matchMedia("(hover: none), (pointer: coarse)").matches
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (skipLenis) {
+      return () => {
+        window.clearTimeout(scrollTimer);
+        document.documentElement.classList.remove("is-scrolling");
+        window.removeEventListener("wheel", markScrolling);
+        window.removeEventListener("scroll", markScrolling);
+        window.removeEventListener("touchmove", markScrolling);
+      };
+    }
 
     const lenis = new Lenis({
-      lerp: 0.09,
+      lerp: 0.08,
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 0.9,
       touchMultiplier: 1.4,
       syncTouch: false,
       autoRaf: false,
@@ -38,6 +61,11 @@ export function SmoothScroll() {
 
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(scrollTimer);
+      document.documentElement.classList.remove("is-scrolling");
+      window.removeEventListener("wheel", markScrolling);
+      window.removeEventListener("scroll", markScrolling);
+      window.removeEventListener("touchmove", markScrolling);
       document.removeEventListener("click", onClick);
       lenis.destroy();
     };
