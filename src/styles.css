@@ -97,7 +97,7 @@
   .grain::before {
     content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
     background-image: radial-gradient(oklch(1 0 0 / 0.08) 1px, transparent 1px);
-    background-size: 3px 3px; mix-blend-mode: overlay; opacity: 0.6;
+    background-size: 4px 4px; mix-blend-mode: overlay; opacity: 0.35;
   }
   .scanlines::after {
     content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -124,8 +124,10 @@
 
   .aurora {
     background: var(--gradient-aurora);
-    filter: blur(80px);
-    opacity: 0.45;
+    filter: blur(56px);
+    opacity: 0.34;
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   .glitch {
@@ -160,6 +162,52 @@
   .mask-wipe-up {
     -webkit-mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
             mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
+  }
+}
+
+html.is-scrolling .marquee-track,
+html.is-scrolling .glitch::before,
+html.is-scrolling .glitch::after,
+html.is-scrolling .pulse-glow,
+html.is-scrolling .blink,
+html.is-scrolling .spin-slow,
+html.is-scrolling .shimmer-text {
+  animation-play-state: paused;
+}
+
+html.is-scrolling .aurora {
+  filter: none;
+  opacity: 0.14;
+}
+
+html.is-scrolling .grain::before,
+html.is-scrolling .scanlines::after {
+  opacity: 0;
+  mix-blend-mode: normal;
+}
+
+html.is-scrolling .noise-grid {
+  opacity: 0.18 !important;
+}
+
+html.is-scrolling .code-rain,
+html.is-scrolling .glitch::before,
+html.is-scrolling .glitch::after {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .marquee-track-rev,
+  .float-y,
+  .drift,
+  .spin-slow,
+  .pulse-glow,
+  .blink,
+  .glitch::before,
+  .glitch::after,
+  .shimmer-text {
+    animation: none !important;
   }
 }
 

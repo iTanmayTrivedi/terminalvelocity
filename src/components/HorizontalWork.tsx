@@ -136,7 +136,7 @@ export function HorizontalWork() {
         </div>
 
         <div className="flex h-full items-center" style={{ perspective: 1400 }}>
-          <motion.div ref={trackRef} style={{ x }} className="flex gap-8 pl-[10vw] pr-[10vw] will-change-transform">
+          <motion.div ref={trackRef} style={{ x }} className="flex gap-8 pl-[10vw] pr-[10vw] will-change-transform" data-scroll-critical>
             {PROJECTS.map((p) => (
               <TiltCard
                 key={p.slug}

@@ -1,21 +1,24 @@
 import { useEffect } from "react";
-import Lenis from "lenis";
 
 export function SmoothScroll() {
   useEffect(() => {
-    // Skip on touch devices — native momentum is better
     if (typeof window === "undefined") return;
-    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const lenis = new Lenis({
-      lerp: 0.09,
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.4,
-      syncTouch: false,
-      autoRaf: false,
-    });
+    let scrollTimer = 0;
+    const markScrolling = () => {
+      document.documentElement.classList.add("is-scrolling");
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        document.documentElement.classList.remove("is-scrolling");
+      }, 150);
+    };
+
+    window.addEventListener("wheel", markScrolling, { passive: true });
+    window.addEventListener("scroll", markScrolling, { passive: true });
+    window.addEventListener("touchmove", markScrolling, { passive: true });
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     // in-page anchor links → smooth scroll
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement)?.closest?.("a[href^='#']") as HTMLAnchorElement | null;
@@ -25,21 +28,18 @@ export function SmoothScroll() {
       const el = document.getElementById(id);
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el, { offset: -40, duration: 1.2 });
+      const top = el.getBoundingClientRect().top + window.scrollY - 40;
+      window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
     };
     document.addEventListener("click", onClick);
 
-    let raf = 0;
-    const tick = (time: number) => {
-      lenis.raf(time);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
     return () => {
-      cancelAnimationFrame(raf);
+      window.clearTimeout(scrollTimer);
+      document.documentElement.classList.remove("is-scrolling");
+      window.removeEventListener("wheel", markScrolling);
+      window.removeEventListener("scroll", markScrolling);
+      window.removeEventListener("touchmove", markScrolling);
       document.removeEventListener("click", onClick);
-      lenis.destroy();
     };
   }, []);
   return null;

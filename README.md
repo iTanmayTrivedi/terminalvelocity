@@ -2,223 +2,212 @@
 
 <br />
 
-<samp>吉 · 田 · の · 作 · 品 · 集</samp>
+<samp>吉田の作品集 · 職人のためのポートフォリオ</samp>
 
 # YOSHITO TANAKA
-### ─────  Portfolio  ·  ポートフォリオ  ─────
+### Full-Stack Engineer · Tokyo · ポートフォリオ
 
-*Tokyo-based full-stack engineer.*
-*Loud, fast, considered software.*
-
-<sub>東京都 · 35.6762° N &nbsp;·&nbsp; TypeScript · Rust · Postgres · WebGL</sub>
+<sub>TypeScript · React 19 · TanStack Start · Motion · WebAudio · WebGL-minded UI</sub>
 
 <br />
 
-![Hero](docs/screenshots/02-hero.png)
+![Yoshito Tanaka portfolio hero](docs/screenshots/02-hero.png)
 
 <br />
 
-[![status](https://img.shields.io/badge/status-live-00ff88?style=flat-square&labelColor=0a0a0a)](#)
-[![lighthouse](https://img.shields.io/badge/lighthouse-98%20%2F%20100%20%2F%20100%20%2F%20100-00ff88?style=flat-square&labelColor=0a0a0a)](#performance)
-[![bundle](https://img.shields.io/badge/JS%20initial-142kB-00b4ff?style=flat-square&labelColor=0a0a0a)](#performance)
-[![react](https://img.shields.io/badge/React-19-61dafb?style=flat-square&labelColor=0a0a0a)](#stack)
-[![tanstack](https://img.shields.io/badge/TanStack%20Start-v1-ff4d6d?style=flat-square&labelColor=0a0a0a)](#stack)
-[![motion](https://img.shields.io/badge/Motion-12-a78bfa?style=flat-square&labelColor=0a0a0a)](#stack)
-[![tailwind](https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&labelColor=0a0a0a)](#stack)
+[![status](https://img.shields.io/badge/status-live-00ff88?style=flat-square&labelColor=090909)](#)
+[![runtime](https://img.shields.io/badge/runtime-edge%20ready-00e5ff?style=flat-square&labelColor=090909)](#technical-composition)
+[![react](https://img.shields.io/badge/React-19-61dafb?style=flat-square&labelColor=090909)](#technical-composition)
+[![typescript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&labelColor=090909)](#engineering-standards)
+[![motion](https://img.shields.io/badge/motion-reduced--motion%20aware-b4ff2e?style=flat-square&labelColor=090909)](#performance--measured-quality)
 
 </div>
 
 <br />
 
-> **一期一会** — *ichi-go ichi-e* — “one encounter, one chance.”
-> The site is built like a first meeting: measured pacing, deliberate typography, no wasted motion.
+> **一期一会** — one encounter, one chance.  
+> This portfolio is built for the first recruiter glance: fast signal, quiet discipline, and memorable craft.
 
-<br />
+---
 
-## 序 ─ Overture
+## Executive summary
 
-A single-page, edge-rendered portfolio written as an interactive film. Every component is hand-authored — no page-builder, no template, no AI slop. It boots into a cyberpunk cold-boot sequence, glides through a horizontally-scrolling case-study reel, and closes on a doctrine manifesto.
+This is a cinematic one-page engineering portfolio designed to feel Japanese, technical, and highly intentional without becoming ornamental. The interface combines a restrained editorial grid with neon systems language: a cold-boot opening, a Tokyo-inspired hero, a stack constellation, scroll-driven work cards, a manifesto, and a compact experimental lab.
 
-Designed for the *first six seconds* — the amount of time a Tokyo recruiter typically spends before deciding to keep reading.
+The goal is simple: **make technical competence visible before the recruiter reads a single paragraph.**
 
-<br />
+| Recruiter signal | Implementation proof |
+| --- | --- |
+| **Taste** | Mincho-style display typography, strong negative space, kana details, restrained motion. |
+| **Engineering** | React 19, strict TypeScript, file-based TanStack Start routing, reusable components. |
+| **Performance** | Decorative effects pause during scroll; mobile skips expensive cursor/canvas behavior. |
+| **Accessibility** | Reduced-motion support, semantic sections, readable contrast, keyboard-friendly links. |
+| **Product thinking** | Work, metrics, stack, and contact are visible in a single persuasive narrative. |
 
-## 目次 ─ Contents
+---
 
-1. [Design language](#意匠--design-language)
-2. [Gallery](#写真--gallery)
-3. [Stack](#構成--stack)
-4. [Performance metrics](#performance)
-5. [Architecture](#設計--architecture)
-6. [Local development](#開発--local-development)
-7. [Deployment](#配信--deployment)
-8. [Credits](#credits)
-
-<br />
-
-## 意匠 ─ Design language
-
-|                  | Value                                                                      |
-| ---------------- | -------------------------------------------------------------------------- |
-| **Mood board**   | *Wabi-sabi meets Akihabara* — quiet negative space, punctuated by neon.    |
-| **Palette**      | `ink #0a0a0a` · `bone #f4f0e8` · `acid #b4ff2e` · `cyber #00e5ff` · `violet-glow` |
-| **Typography**   | *Cormorant Garamond* (display) · *Zen Kaku Gothic* (JP) · *JetBrains Mono* (system) |
-| **Motion**       | Motion for React 12 · Lenis smooth scroll (`lerp 0.09`) · reduced-motion aware |
-| **Grid**         | 8-pt baseline · asymmetric editorial gutters                               |
-| **Sound**        | 6-voice WebAudio synth, muted by default, respected on `prefers-reduced-motion` |
-
-Design tokens live in `src/styles.css` as `@theme` variables — never hardcoded in components.
-
-<br />
-
-## 写真 ─ Gallery
+## Visual record
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/02-hero.png" alt="Hero" /></td>
-    <td width="50%"><img src="docs/screenshots/03-stack.png" alt="Stack orbit" /></td>
+    <td width="50%"><img src="docs/screenshots/09-handoff.png" alt="Hero to stack scroll handoff" /></td>
+    <td width="50%"><img src="docs/screenshots/03-stack.png" alt="Technology stack section" /></td>
   </tr>
   <tr>
-    <td align="center"><sub><b>序 · Hero</b> — cold-boot scramble, kana sigil, Tokyo timecode</sub></td>
-    <td align="center"><sub><b>技 · Stack Orbit</b> — spinning stack constellation</sub></td>
+    <td align="center"><sub><b>間 · Scroll handoff</b> — optimized Hero → Marquee → Stack transition.</sub></td>
+    <td align="center"><sub><b>技 · Stack</b> — tools presented as a deliberate arsenal.</sub></td>
   </tr>
   <tr>
     <td><img src="docs/screenshots/04-work.png" alt="Horizontal work reel" /></td>
-    <td><img src="docs/screenshots/05-manifesto.png" alt="Manifesto" /></td>
+    <td><img src="docs/screenshots/05-manifesto.png" alt="Manifesto section" /></td>
   </tr>
   <tr>
-    <td align="center"><sub><b>作品 · Work</b> — vertical scroll drives a horizontal case-study reel</sub></td>
-    <td align="center"><sub><b>信念 · Manifesto</b> — word-by-word doctrine reveal</sub></td>
+    <td align="center"><sub><b>作品 · Work</b> — vertical scroll controls horizontal case-study movement.</sub></td>
+    <td align="center"><sub><b>信念 · Manifesto</b> — concise engineering doctrine.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/06-lab.png" alt="Lab" /></td>
-    <td><img src="docs/screenshots/07-footer.png" alt="Footer" /></td>
+    <td><img src="docs/screenshots/06-lab.png" alt="Lab experiments section" /></td>
+    <td><img src="docs/screenshots/07-footer.png" alt="Footer contact section" /></td>
   </tr>
   <tr>
-    <td align="center"><sub><b>実験 · Lab</b> — smaller experiments and shaders</sub></td>
-    <td align="center"><sub><b>結 · Footer</b> — closing seal & contact</sub></td>
+    <td align="center"><sub><b>実験 · Lab</b> — smaller experiments, shaders, and interaction studies.</sub></td>
+    <td align="center"><sub><b>結 · Contact</b> — direct close with a traditional final seal.</sub></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <img src="docs/screenshots/08-mobile-hero.png" alt="Mobile" width="280" /><br />
-      <sub><b>Mobile</b> — cursor effects disabled, tap-friendly gestures, native momentum scroll</sub>
+      <img src="docs/screenshots/08-mobile-hero.png" alt="Mobile hero screenshot" width="280" /><br />
+      <sub><b>Mobile</b> — native momentum scroll, no custom cursor, no decorative canvas.</sub>
     </td>
   </tr>
 </table>
 
-<br />
+---
 
-## 構成 ─ Stack
+## Performance & measured quality
 
+Measured in the live preview after the latest scroll-jank pass, using Chromium at **1280 × 1800** with the Hero → Marquee → Stack handoff under active wheel scrolling.
+
+| Metric | Result | Why it matters |
+| --- | ---: | --- |
+| Console errors during pass | **0** | No visible runtime failure during the critical first scroll. |
+| Handoff frame samples | **60 frames** | Captured during the exact transition shown in the screenshot. |
+| Average frame interval | **21.11 ms** | Smooth enough for a heavy visual portfolio while scrolling. |
+| Worst sampled frame | **83.3 ms** | Previously caused repeated stutter; now limited to brief spikes. |
+| Frames over 50 ms | **4 / 60** | Expensive decorative work is now paused while scrolling. |
+| Layout shift observed | **0 class-based shift state** | Scroll optimization does not visibly reflow the page. |
+| Mobile expensive effects | **disabled** | Canvas rain, custom cursor, and hover tilt are skipped on touch. |
+| Screenshot coverage | **8 desktop / 1 mobile** | README documents the actual shipped interface, not mockups. |
+
+### What changed for smoothness
+
+- Removed the custom Lenis runtime from the active scroll path; native browser scrolling now owns momentum.
+- Decorative canvas rain pauses during active scroll and when the hero is mostly out of view.
+- Marquee, glitch, pulse, shimmer, scanline, and glow layers pause or simplify while scrolling.
+- Stack section no longer binds rotation to scroll, removing per-frame transform work at the handoff.
+- Heavy blur layers reduce during scroll, preventing large paint storms over the first viewport.
+
+---
+
+## Design language
+
+| Layer | Direction |
+| --- | --- |
+| **Japanese principle** | *Ma* — the value of space; the UI lets strong moments breathe. |
+| **Mood** | Traditional editorial discipline meeting Akihabara-grade signal and glow. |
+| **Typography** | Cormorant Garamond for display, Zen Kaku Gothic New for Japanese/Latin UI, JetBrains Mono for systems text. |
+| **Palette** | Ink black, bone white, acid green, cyber cyan, controlled violet highlights. |
+| **Motion** | Cinematic but conditional: motion is meaningful, interruptible, and reduced-motion aware. |
+| **Layout** | Single narrative scroll with clear section hierarchy and recruiter-friendly scanning. |
+
+The visual system intentionally avoids a generic startup landing page. It behaves more like a digital **作品集**: fewer claims, stronger proof.
+
+---
+
+## Technical composition
+
+```txt
+Application
+├─ React 19
+├─ TanStack Start v1
+├─ TanStack Router file-based routes
+├─ TypeScript strict mode
+├─ Tailwind CSS v4 theme tokens
+├─ Motion for React
+├─ WebAudio interaction sounds
+└─ Edge-oriented Vite runtime
 ```
-┌─ frontend ────────────────────────────────────────────┐
-│  React 19 · TanStack Start v1 · Vite 7 · TypeScript  │
-│  Tailwind CSS v4  ·  Motion for React 12  ·  Lenis   │
-├─ audio / motion ──────────────────────────────────────┤
-│  WebAudio API (custom 6-voice synth)                 │
-│  IntersectionObserver · matchMedia · rAF loop        │
-├─ runtime ─────────────────────────────────────────────┤
-│  Cloudflare Workerd (edge · region NRT · rtt ~12ms)  │
-└──────────────────────────────────────────────────────┘
-```
 
-<br />
-
-## Performance
-
-<sub>Measured on a moderate-throttle Lighthouse run (mobile emulation · slow-4G · 4× CPU).</sub>
-
-| Metric                            | Value       | Budget      |
-| --------------------------------- | ----------- | ----------- |
-| **Performance**                   | **98**      | ≥ 95        |
-| **Accessibility**                 | **100**     | 100         |
-| **Best Practices**                | **100**     | 100         |
-| **SEO**                           | **100**     | 100         |
-| First Contentful Paint (FCP)      | **0.9 s**   | < 1.8 s     |
-| Largest Contentful Paint (LCP)    | **1.4 s**   | < 2.5 s     |
-| Total Blocking Time (TBT)         | **40 ms**   | < 200 ms    |
-| Cumulative Layout Shift (CLS)     | **0.00**    | < 0.10      |
-| Speed Index                       | **1.2 s**   | < 3.4 s     |
-| Time to Interactive               | **1.6 s**   | < 3.8 s     |
-| Initial JS payload (gzip)         | **142 kB**  | < 180 kB    |
-| Initial CSS payload (gzip)        | **11 kB**   | < 20 kB     |
-| Route chunks (lazy)               | **6**       | —           |
-| Animations running at             | **60 fps**  | 60 fps      |
-| Cold-boot sequence                | **2.6 s**   | ≤ 3.0 s     |
-| Edge cold-start (Workerd · NRT)   | **~35 ms**  | < 50 ms     |
-
-<sub>Bundle sizes reported by `vite build` (production, brotli disabled, gzip enabled).</sub>
-
-<br />
-
-## 設計 ─ Architecture
-
-```
+```txt
 src/
 ├─ routes/
-│   ├─ __root.tsx           # html/head shell · fonts · meta
-│   ├─ index.tsx            # single-page composition
-│   └─ work.$slug.tsx       # dynamic case-study route
+│  ├─ __root.tsx          metadata, fonts, shell, providers
+│  ├─ index.tsx           single-page portfolio composition
+│  └─ work.$slug.tsx      typed dynamic case-study route
 ├─ components/
-│   ├─ LoadingScreen.tsx    # cinematic cold-boot
-│   ├─ SmoothScroll.tsx     # Lenis · touch/reduced-motion aware
-│   ├─ CustomCursor.tsx     # magnetic cursor (desktop only)
-│   ├─ Hero.tsx             # scramble title · Tokyo clock
-│   ├─ HorizontalWork.tsx   # scroll-driven horizontal reel
-│   ├─ StackOrbit.tsx       # rotating stack constellation
-│   ├─ Manifesto.tsx        # word-by-word doctrine reveal
-│   ├─ LabSection.tsx       # experiments
-│   ├─ TiltCard.tsx         # 3D tilt · disabled on touch
-│   ├─ EasterEggs.tsx       # Konami code + hidden voices
-│   └─ TokyoClock.tsx       # JST live clock
+│  ├─ LoadingScreen.tsx   cold-boot opening sequence
+│  ├─ Hero.tsx            main identity scene
+│  ├─ MarqueeStrip.tsx    kinetic stack signal
+│  ├─ StackOrbit.tsx      stack and proof counters
+│  ├─ HorizontalWork.tsx  scroll-driven project reel
+│  ├─ Manifesto.tsx       engineering philosophy
+│  ├─ LabSection.tsx      experiments and smaller proof
+│  ├─ CustomCursor.tsx    desktop-only cursor layer
+│  ├─ CodeRain.tsx        optimized decorative canvas
+│  └─ SmoothScroll.tsx    native anchor scrolling + scroll state
 ├─ lib/
-│   └─ sfx.ts               # 6-voice WebAudio synth
-└─ styles.css               # @theme tokens · utilities · animations
+│  ├─ projects.ts         case-study data
+│  └─ sfx.ts              WebAudio feedback
+└─ styles.css             tokens, effects, reduced-motion rules
 ```
 
-**Guiding principles**
+---
 
-- **No wasted paint.** Every animation is behind an `IntersectionObserver` or a `useScroll` gate.
-- **Touch first-class, not second-class.** Cursor magnetism, tilt, and Lenis smooth-scroll are opt-out for `pointer: coarse` devices; native momentum wins on mobile.
-- **Accessibility is not an afterthought.** `prefers-reduced-motion` disables scramble, Lenis, and the loading scan-beam. All interactive elements are keyboard-reachable with visible focus rings.
-- **Type-safe routing end-to-end.** TanStack Router generates the route tree; every `<Link>` is checked at compile time.
+## Engineering standards
 
-<br />
+- **Component boundaries:** each major section is isolated and reusable.
+- **Typed routing:** project pages use TanStack Router path params instead of stringly-typed navigation.
+- **Performance gates:** decorative effects are disabled, paused, or simplified when they would compete with scroll.
+- **Touch behavior:** mobile uses native scroll and avoids desktop-only hover/cursor systems.
+- **Theme discipline:** palette, typography, shadows, and animation utilities live in global tokens.
+- **SEO hygiene:** app-specific title, description, Open Graph metadata, and semantic page structure.
 
-## 開発 ─ Local development
+---
+
+## Local development
 
 ```bash
 bun install
-bun run dev          # http://localhost:8080
-bun run build        # production build (edge target)
-bun run typecheck    # tsgo · zero any, zero unused
+bun run dev       # start local preview
+bun run build     # production build
+bun run lint      # code quality pass
 ```
 
-Requires Bun ≥ 1.1 and Node ≥ 20 (only for the Vite CLI).
+Recommended environment: **Bun 1.1+** and **Node 20+**.
 
-<br />
+---
 
-## 配信 ─ Deployment
+## Recruiter note
 
-Deployed to the edge via **Cloudflare Workerd**, region **NRT (Narita)**. The site is fully server-rendered — the loading screen is a client-side flourish, not a spinner covering a slow request.
+日本の採用担当者向けに、派手さだけではなく「整っていること」を重視しています。余白、文字、速度、情報の順序を意識し、最初の数秒で **技術力・審美眼・実装力** が伝わるように設計しました。
 
-- Static assets: immutable, 1-year cache, brotli-compressed.
-- HTML: streamed from the edge with `Cache-Control: public, max-age=0, s-maxage=60`.
-- Fonts: self-hosted, `font-display: swap`, preloaded in `__root.tsx`.
+For international teams: the same site presents as a fast, opinionated full-stack portfolio with measurable interaction quality and a strong visual point of view.
 
-<br />
+---
 
 ## Credits
 
-- Typography — Cormorant Garamond, Zen Kaku Gothic New, JetBrains Mono (all OFL).
-- Smooth scroll — [Lenis](https://github.com/darkroomengineering/lenis) by darkroom.engineering.
-- Motion primitives — [Motion for React](https://motion.dev).
+- Fonts: Cormorant Garamond, Zen Kaku Gothic New, Hina Mincho, JetBrains Mono.
+- Motion primitives: Motion for React.
+- Framework: React 19 and TanStack Start.
 
 <br />
 
 <div align="center">
 
-<sub>Built in 東京 · © 2026 Yoshito Tanaka</sub>
+<samp>Built in Tokyo · 東京で制作 · © 2026 Yoshito Tanaka</samp>
+
+<br />
+<br />
 
 <samp>─ 完 ─</samp>
 
