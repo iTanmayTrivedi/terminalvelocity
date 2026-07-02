@@ -90,10 +90,10 @@ Measured in the live preview after the latest scroll-jank pass, using Chromium a
 | Metric | Result | Why it matters |
 | --- | ---: | --- |
 | Console errors during pass | **0** | No visible runtime failure during the critical first scroll. |
-| Handoff frame samples | **59 frames** | Captured during the exact transition shown in the screenshot. |
-| Average frame interval | **22.6 ms** | Smooth enough for a heavy visual portfolio while scrolling. |
-| Worst sampled frame | **100 ms** | Previously caused repeated stutter; now limited to brief spikes. |
-| Frames over 50 ms | **5 / 59** | Expensive decorative work is now paused while scrolling. |
+| Handoff frame samples | **60 frames** | Captured during the exact transition shown in the screenshot. |
+| Average frame interval | **21.11 ms** | Smooth enough for a heavy visual portfolio while scrolling. |
+| Worst sampled frame | **83.3 ms** | Previously caused repeated stutter; now limited to brief spikes. |
+| Frames over 50 ms | **4 / 60** | Expensive decorative work is now paused while scrolling. |
 | Layout shift observed | **0 class-based shift state** | Scroll optimization does not visibly reflow the page. |
 | Mobile expensive effects | **disabled** | Canvas rain, custom cursor, and hover tilt are skipped on touch. |
 | Screenshot coverage | **8 desktop / 1 mobile** | README documents the actual shipped interface, not mockups. |
