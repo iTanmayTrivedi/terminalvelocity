@@ -176,13 +176,24 @@ html.is-scrolling .shimmer-text {
 }
 
 html.is-scrolling .aurora {
-  filter: blur(40px);
-  opacity: 0.24;
+  filter: none;
+  opacity: 0.14;
 }
 
 html.is-scrolling .grain::before,
 html.is-scrolling .scanlines::after {
-  opacity: 0.18;
+  opacity: 0;
+  mix-blend-mode: normal;
+}
+
+html.is-scrolling .noise-grid {
+  opacity: 0.18 !important;
+}
+
+html.is-scrolling .code-rain,
+html.is-scrolling .glitch::before,
+html.is-scrolling .glitch::after {
+  visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

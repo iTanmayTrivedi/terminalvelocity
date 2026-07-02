@@ -83,5 +83,5 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
       io.disconnect();
     };
   }, []);
-  return <canvas ref={ref} className="absolute inset-0 h-full w-full" style={{ opacity, contain: "strict" }} />;
+  return <canvas ref={ref} className="code-rain absolute inset-0 h-full w-full" style={{ opacity, contain: "strict" }} />;
 }
