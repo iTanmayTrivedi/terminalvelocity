@@ -165,36 +165,7 @@
   }
 }
 
-html.is-scrolling .marquee-track,
-html.is-scrolling .glitch::before,
-html.is-scrolling .glitch::after,
-html.is-scrolling .pulse-glow,
-html.is-scrolling .blink,
-html.is-scrolling .spin-slow,
-html.is-scrolling .shimmer-text {
-  animation-play-state: paused;
-}
-
-html.is-scrolling .aurora {
-  filter: none;
-  opacity: 0.14;
-}
-
-html.is-scrolling .grain::before,
-html.is-scrolling .scanlines::after {
-  opacity: 0;
-  mix-blend-mode: normal;
-}
-
-html.is-scrolling .noise-grid {
-  opacity: 0.18 !important;
-}
-
-html.is-scrolling .code-rain,
-html.is-scrolling .glitch::before,
-html.is-scrolling .glitch::after {
-  visibility: hidden;
-}
+/* animations run continuously — no scroll-based pausing */
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,

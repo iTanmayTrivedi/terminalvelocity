@@ -32,13 +32,11 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
     let raf = 0;
     let last = 0;
     let visible = true;
-    let scrolling = false;
-    let scrollTimer = 0;
-    const FRAME = 1000 / 24; // decorative canvas: keep it below scroll-critical work
+    const FRAME = 1000 / 30;
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (!visible || scrolling) return;
+      if (!visible) return;
       if (now - last < FRAME) return;
       last = now;
 
@@ -51,34 +49,24 @@ export function CodeRain({ opacity = 0.18 }: { opacity?: number }) {
         ctx.fillStyle = drops[i] < 2 ? "rgba(220,255,210,0.9)" : "rgba(120,255,180,0.5)";
         ctx.fillText(ch, i * fontSize, y);
         if (y > c.height && Math.random() > 0.982) drops[i] = 0;
-        drops[i] += 0.48;
+        drops[i] += 0.5;
       }
     };
     raf = requestAnimationFrame(draw);
 
-    // Pause when offscreen
     const io = new IntersectionObserver(
-      ([e]) => { visible = e.isIntersecting && e.intersectionRatio > 0.45; },
-      { threshold: [0, 0.45, 1] },
+      ([e]) => { visible = e.isIntersecting && e.intersectionRatio > 0.1; },
+      { threshold: [0, 0.1, 1] },
     );
     io.observe(c);
 
-    const onScroll = () => {
-      scrolling = true;
-      window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(() => { scrolling = false; }, 140);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    // Pause when tab hidden
     const onVis = () => { visible = !document.hidden; };
     document.addEventListener("visibilitychange", onVis);
 
+
     return () => {
       cancelAnimationFrame(raf);
-      window.clearTimeout(scrollTimer);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("scroll", onScroll);
       document.removeEventListener("visibilitychange", onVis);
       io.disconnect();
     };
