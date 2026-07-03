@@ -32,6 +32,7 @@ export function LoadingScreen() {
   const [glyphRows, setGlyphRows] = useState<string[]>(["", "", ""]);
   const [hint, setHint] = useState("");
   const startRef = useRef<number>(0);
+  const previousOverflowRef = useRef("");
   const DURATION = 2600;
 
   // pre-compute static decorative stripes
@@ -41,7 +42,8 @@ export function LoadingScreen() {
   );
 
   useEffect(() => {
-    document.documentElement.style.overflow = "hidden";
+    previousOverflowRef.current = document.documentElement.style.overflow;
+    document.documentElement.classList.add("loader-lock");
     startRef.current = performance.now();
     let raf = 0;
 
@@ -72,12 +74,16 @@ export function LoadingScreen() {
 
     return () => {
       cancelAnimationFrame(raf);
-      document.documentElement.style.overflow = "";
+      document.documentElement.classList.remove("loader-lock");
+      document.documentElement.style.overflow = previousOverflowRef.current;
     };
   }, []);
 
   useEffect(() => {
-    if (!visible) document.documentElement.style.overflow = "";
+    if (!visible) {
+      document.documentElement.classList.remove("loader-lock");
+      document.documentElement.style.overflow = previousOverflowRef.current;
+    }
   }, [visible]);
 
   const pct = Math.floor(progress * 100);
