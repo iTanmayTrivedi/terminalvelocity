@@ -13,6 +13,7 @@ export function HorizontalWork() {
   const maxTravelRef = useRef(0);
   const [sectionHeight, setSectionHeight] = useState("100vh");
   const [isDesktop, setIsDesktop] = useState(true);
+  const [pinPhase, setPinPhase] = useState<"before" | "active" | "after">("before");
   const x = useMotionValue(0);
   const lockedProgress = useMotionValue(0);
 
@@ -41,7 +42,9 @@ export function HorizontalWork() {
       const scrollRange = Math.max(section.offsetHeight - window.innerHeight, 1);
       const raw = (window.scrollY - section.offsetTop) / scrollRange;
       const p = Math.min(1, Math.max(0, raw));
+      const nextPhase = raw < 0 ? "before" : raw > 1 ? "after" : "active";
 
+      setPinPhase((current) => (current === nextPhase ? current : nextPhase));
       lockedProgress.set(p);
       x.set(-p * travel);
     };
@@ -57,7 +60,7 @@ export function HorizontalWork() {
 
       const travel = Math.max(track.scrollWidth - viewport.clientWidth, 0);
       maxTravelRef.current = travel;
-      setSectionHeight(`${Math.max(window.innerHeight + travel, window.innerHeight)}px`);
+      setSectionHeight(`${Math.max(window.innerHeight + travel + 260, window.innerHeight)}px`);
       requestSync();
     };
 
@@ -131,7 +134,12 @@ export function HorizontalWork() {
 
   return (
     <section ref={sectionRef} id="work" className="relative bg-ink" style={{ height: sectionHeight }}>
-      <div ref={viewportRef} className="sticky top-0 flex h-[100svh] touch-pan-y flex-col overflow-hidden">
+      <div
+        ref={viewportRef}
+        className={`left-0 right-0 flex h-[100svh] touch-pan-y flex-col overflow-hidden ${
+          pinPhase === "active" ? "fixed top-0" : pinPhase === "after" ? "absolute bottom-0" : "absolute top-0"
+        }`}
+      >
         {/* Section header — sits above the sticky panel, fades with progress */}
         <div className="pointer-events-none absolute left-6 top-24 z-20 md:left-12">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">
