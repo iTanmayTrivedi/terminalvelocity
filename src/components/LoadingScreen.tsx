@@ -100,13 +100,13 @@ export function LoadingScreen() {
             initial={{ y: 0 }}
             animate={{ y: 0 }}
             exit={{ y: "-100%", transition: { duration: 0.85, ease: [0.83, 0, 0.17, 1] } }}
-            className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/2 bg-ink"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/2 bg-ink"
           />
           <motion.div
             initial={{ y: 0 }}
             animate={{ y: 0 }}
             exit={{ y: "100%", transition: { duration: 0.85, ease: [0.83, 0, 0.17, 1] } }}
-            className="pointer-events-none absolute inset-y-0 right-0 z-30 w-1/2 bg-ink"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-1/2 bg-ink"
           />
 
           {/* Background layers */}
