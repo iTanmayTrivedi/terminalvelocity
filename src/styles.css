@@ -76,6 +76,10 @@
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--ink); }
   ::-webkit-scrollbar-thumb { background: var(--cyber); }
+  html.loader-lock,
+  html.loader-lock body {
+    overscroll-behavior: none;
+  }
 }
 
 @layer utilities {
@@ -163,6 +167,10 @@
     -webkit-mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
             mask-image: linear-gradient(to top, #000 var(--wipe, 100%), transparent var(--wipe, 100%));
   }
+
+  .work-pin-panel { position: absolute; top: 0; }
+  .work-pin-panel[data-pin-phase="active"] { position: fixed; top: 0; }
+  .work-pin-panel[data-pin-phase="after"] { position: absolute; top: auto; bottom: 0; }
 }
 
 /* animations run continuously — no scroll-based pausing */

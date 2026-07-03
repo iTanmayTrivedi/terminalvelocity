@@ -32,6 +32,7 @@ export function LoadingScreen() {
   const [glyphRows, setGlyphRows] = useState<string[]>(["", "", ""]);
   const [hint, setHint] = useState("");
   const startRef = useRef<number>(0);
+  const previousOverflowRef = useRef("");
   const DURATION = 2600;
 
   // pre-compute static decorative stripes
@@ -41,7 +42,8 @@ export function LoadingScreen() {
   );
 
   useEffect(() => {
-    document.documentElement.style.overflow = "hidden";
+    previousOverflowRef.current = document.documentElement.style.overflow;
+    document.documentElement.classList.add("loader-lock");
     startRef.current = performance.now();
     let raf = 0;
 
@@ -72,12 +74,16 @@ export function LoadingScreen() {
 
     return () => {
       cancelAnimationFrame(raf);
-      document.documentElement.style.overflow = "";
+      document.documentElement.classList.remove("loader-lock");
+      document.documentElement.style.overflow = previousOverflowRef.current;
     };
   }, []);
 
   useEffect(() => {
-    if (!visible) document.documentElement.style.overflow = "";
+    if (!visible) {
+      document.documentElement.classList.remove("loader-lock");
+      document.documentElement.style.overflow = previousOverflowRef.current;
+    }
   }, [visible]);
 
   const pct = Math.floor(progress * 100);
@@ -100,13 +106,13 @@ export function LoadingScreen() {
             initial={{ y: 0 }}
             animate={{ y: 0 }}
             exit={{ y: "-100%", transition: { duration: 0.85, ease: [0.83, 0, 0.17, 1] } }}
-            className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/2 bg-ink"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/2 bg-ink"
           />
           <motion.div
             initial={{ y: 0 }}
             animate={{ y: 0 }}
             exit={{ y: "100%", transition: { duration: 0.85, ease: [0.83, 0, 0.17, 1] } }}
-            className="pointer-events-none absolute inset-y-0 right-0 z-30 w-1/2 bg-ink"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-1/2 bg-ink"
           />
 
           {/* Background layers */}

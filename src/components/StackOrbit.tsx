@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { useRef } from "react";
 
 const STACK = [
   { n: "TypeScript", c: "cyber" },
@@ -16,8 +17,13 @@ const STACK = [
 ];
 
 export function StackOrbit() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const rotationRaw = useTransform(scrollYProgress, [0, 1], [-10, 10]);
+  const rotation = useSpring(rotationRaw, { stiffness: 80, damping: 22, mass: 0.45 });
+
   return (
-    <section id="stack" className="relative overflow-hidden bg-ink py-24 md:py-32">
+    <section ref={ref} id="stack" className="relative overflow-hidden bg-ink py-24 md:py-32">
       <div className="absolute inset-0 noise-grid opacity-40" />
       <div className="absolute left-1/2 top-1/2 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 aurora opacity-20" />
 
@@ -35,13 +41,16 @@ export function StackOrbit() {
           </p>
         </div>
 
-        <div className="origin-center" style={{ transform: "rotate(-1.5deg)" }}>
+        <motion.div className="origin-center will-change-transform" style={{ rotate: rotation }}>
           <div className="flex flex-wrap justify-center gap-2 md:gap-4">
             {STACK.map((s, i) => (
               <motion.span
                 key={s.n}
+                initial={{ opacity: 0, y: 24, rotate: i % 2 ? 6 : -6 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 whileHover={{ scale: 1.15, y: -8, rotate: i % 2 ? 4 : -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 14 }}
+                viewport={{ once: false, margin: "-12%" }}
+                transition={{ type: "spring", stiffness: 300, damping: 18, delay: i * 0.025 }}
                 data-cursor data-cursor-label={s.n.toLowerCase()}
                 className={`group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors md:px-5 md:py-2.5 md:text-sm`}
                 style={{
@@ -55,7 +64,7 @@ export function StackOrbit() {
               </motion.span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         <div className="mt-16 grid grid-cols-2 gap-5 md:mt-24 md:grid-cols-3 md:gap-6">
           {[
