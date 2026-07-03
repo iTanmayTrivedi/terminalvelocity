@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { PROJECTS } from "@/lib/projects";
@@ -10,53 +10,74 @@ export function HorizontalWork() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [maxTravel, setMaxTravel] = useState(0);
+  const maxTravelRef = useRef(0);
   const [sectionHeight, setSectionHeight] = useState("100vh");
   const [isDesktop, setIsDesktop] = useState(true);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  const x = useMotionValue(0);
+  const lockedProgress = useMotionValue(0);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px) and (hover: hover)");
+    const mq = window.matchMedia("(min-width: 768px)");
     const update = () => setIsDesktop(mq.matches);
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  const xRaw = useTransform(scrollYProgress, (value) => -value * maxTravel);
-  const x = useSpring(xRaw, { stiffness: 120, damping: 26, mass: 0.4 });
-
-  const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const counter = useTransform(scrollYProgress, (v) =>
+  const progress = useTransform(lockedProgress, [0, 1], ["0%", "100%"]);
+  const counter = useTransform(lockedProgress, (v) =>
     String(Math.min(PROJECTS.length, Math.floor(v * PROJECTS.length) + 1)).padStart(2, "0"),
   );
 
   useEffect(() => {
+    let raf = 0;
+
+    const syncToScroll = () => {
+      raf = 0;
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const travel = maxTravelRef.current;
+      const scrollRange = Math.max(section.offsetHeight - window.innerHeight, 1);
+      const raw = (window.scrollY - section.offsetTop) / scrollRange;
+      const p = Math.min(1, Math.max(0, raw));
+
+      lockedProgress.set(p);
+      x.set(-p * travel);
+    };
+
+    const requestSync = () => {
+      if (!raf) raf = requestAnimationFrame(syncToScroll);
+    };
+
     const updateTravel = () => {
       const track = trackRef.current;
       const viewport = viewportRef.current;
       if (!track || !viewport) return;
 
       const travel = Math.max(track.scrollWidth - viewport.clientWidth, 0);
-      setMaxTravel(travel);
+      maxTravelRef.current = travel;
       setSectionHeight(`${Math.max(window.innerHeight + travel, window.innerHeight)}px`);
+      requestSync();
     };
 
     updateTravel();
+    const settleTimer = window.setTimeout(updateTravel, 350);
     window.addEventListener("resize", updateTravel);
+    window.addEventListener("scroll", requestSync, { passive: true });
 
     const observer = new ResizeObserver(updateTravel);
     if (trackRef.current) observer.observe(trackRef.current);
     if (viewportRef.current) observer.observe(viewportRef.current);
 
     return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(settleTimer);
       window.removeEventListener("resize", updateTravel);
+      window.removeEventListener("scroll", requestSync);
       observer.disconnect();
     };
-  }, []);
+  }, [lockedProgress, x]);
 
   // Mobile: vertical stack with snap — no scroll-jacking.
   if (!isDesktop) {
@@ -109,8 +130,8 @@ export function HorizontalWork() {
   }
 
   return (
-    <section ref={sectionRef} id="work" className="relative bg-ink" style={{ height: sectionHeight }}>
-      <div ref={viewportRef} className="sticky top-0 flex h-screen touch-pan-y flex-col overflow-hidden">
+    <section ref={sectionRef} id="work" className="relative overflow-clip bg-ink" style={{ height: sectionHeight }}>
+      <div ref={viewportRef} className="sticky top-0 flex h-[100svh] touch-pan-y flex-col overflow-hidden">
         {/* Section header — sits above the sticky panel, fades with progress */}
         <div className="pointer-events-none absolute left-6 top-24 z-20 md:left-12">
           <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-acid">
@@ -135,13 +156,13 @@ export function HorizontalWork() {
           <motion.div style={{ width: progress }} className="h-full bg-gradient-to-r from-acid via-cyber to-violet-glow" />
         </div>
 
-        <div className="flex h-full items-center" style={{ perspective: 1400 }}>
-          <motion.div ref={trackRef} style={{ x }} className="flex gap-8 pl-[10vw] pr-[10vw] will-change-transform" data-scroll-critical>
+        <div className="flex h-full items-center pt-8" style={{ perspective: 1400 }}>
+          <motion.div ref={trackRef} style={{ x }} className="flex gap-8 pl-[8vw] pr-[8vw] will-change-transform" data-scroll-critical>
             {PROJECTS.map((p) => (
               <TiltCard
                 key={p.slug}
                 max={10}
-                className="group relative h-[70vh] w-[70vw] max-w-[760px] flex-shrink-0 overflow-hidden border border-border bg-card"
+                className="group relative h-[76svh] min-h-[430px] w-[72vw] max-w-[820px] flex-shrink-0 overflow-hidden border border-border bg-card"
               >
                 <Link
                   to="/work/$slug"
@@ -180,7 +201,7 @@ export function HorizontalWork() {
                     <ScrambleText
                       as="h3"
                       text={p.t}
-                      trigger="hover"
+                      trigger="view"
                       duration={600}
                       className="font-display text-6xl text-bone md:text-8xl"
                     />
