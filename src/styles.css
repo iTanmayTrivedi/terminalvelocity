@@ -76,6 +76,10 @@
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--ink); }
   ::-webkit-scrollbar-thumb { background: var(--cyber); }
+  html.loader-lock,
+  html.loader-lock body {
+    overscroll-behavior: none;
+  }
 }
 
 @layer utilities {
