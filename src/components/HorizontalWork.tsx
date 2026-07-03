@@ -130,7 +130,7 @@ export function HorizontalWork() {
   }
 
   return (
-    <section ref={sectionRef} id="work" className="relative overflow-clip bg-ink" style={{ height: sectionHeight }}>
+    <section ref={sectionRef} id="work" className="relative bg-ink" style={{ height: sectionHeight }}>
       <div ref={viewportRef} className="sticky top-0 flex h-[100svh] touch-pan-y flex-col overflow-hidden">
         {/* Section header — sits above the sticky panel, fades with progress */}
         <div className="pointer-events-none absolute left-6 top-24 z-20 md:left-12">
