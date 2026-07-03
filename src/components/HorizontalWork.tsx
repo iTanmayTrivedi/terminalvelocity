@@ -13,7 +13,6 @@ export function HorizontalWork() {
   const maxTravelRef = useRef(0);
   const [sectionHeight, setSectionHeight] = useState("100vh");
   const [isDesktop, setIsDesktop] = useState(true);
-  const [pinPhase, setPinPhase] = useState<"before" | "active" | "after">("before");
   const x = useMotionValue(0);
   const lockedProgress = useMotionValue(0);
 
@@ -44,7 +43,7 @@ export function HorizontalWork() {
       const p = Math.min(1, Math.max(0, raw));
       const nextPhase = raw < 0 ? "before" : raw > 1 ? "after" : "active";
 
-      setPinPhase((current) => (current === nextPhase ? current : nextPhase));
+      viewportRef.current?.setAttribute("data-pin-phase", nextPhase);
       lockedProgress.set(p);
       x.set(-p * travel);
     };
@@ -136,9 +135,8 @@ export function HorizontalWork() {
     <section ref={sectionRef} id="work" className="relative bg-ink" style={{ height: sectionHeight }}>
       <div
         ref={viewportRef}
-        className={`left-0 right-0 flex h-[100svh] touch-pan-y flex-col overflow-hidden ${
-          pinPhase === "active" ? "fixed top-0" : pinPhase === "after" ? "absolute bottom-0" : "absolute top-0"
-        }`}
+        data-pin-phase="before"
+        className="work-pin-panel left-0 right-0 flex h-[100svh] touch-pan-y flex-col overflow-hidden"
       >
         {/* Section header — sits above the sticky panel, fades with progress */}
         <div className="pointer-events-none absolute left-6 top-24 z-20 md:left-12">
