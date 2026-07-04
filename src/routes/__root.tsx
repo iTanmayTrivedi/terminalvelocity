@@ -77,10 +77,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Yoshito Tanaka Portfolio" },
+      { title: "Tanmay Trivedi Portfolio" },
       { name: "description", content: "Tokyo full-stack engineer portfolio with fast interactive case studies, Japanese editorial craft, and measurable performance." },
-      { name: "author", content: "Yoshito Tanaka" },
-      { property: "og:title", content: "Yoshito Tanaka Portfolio" },
+      { name: "author", content: "Tanmay Trivedi" },
+      { property: "og:title", content: "Tanmay Trivedi Portfolio" },
       { property: "og:description", content: "Tokyo full-stack engineer portfolio with fast interactive case studies and Japanese editorial craft." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

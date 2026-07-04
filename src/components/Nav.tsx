@@ -23,7 +23,7 @@ export function Nav() {
       >
         <a href="#top" data-cursor data-cursor-label="home" className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-acid pulse-glow" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-bone md:text-xs">yoshito.dev</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-bone md:text-xs">tanmay.dev</span>
         </a>
         <ul className="hidden gap-7 md:flex">
           {links.map((it) => (

@@ -21,7 +21,7 @@ export function ProfileSection() {
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             src={mascot}
-            alt="Yoshito mascot"
+            alt="Tanmay mascot"
             className="float-y mx-auto h-72 w-72 md:h-96 md:w-96"
           />
           <div className="absolute inset-0 -z-10 mx-auto h-72 w-72 rounded-full bg-white/40 blur-3xl md:h-96 md:w-96" />
@@ -33,7 +33,7 @@ export function ProfileSection() {
           </p>
           <h2 className="mt-6 font-serif text-5xl leading-tight text-ink md:text-7xl">
             はじめまして、<br />
-            <span className="italic">Yoshito</span> です。
+            <span className="italic">Tanmay</span> です。
           </h2>
           <div className="mt-8 max-w-lg space-y-5 text-ink/80 leading-relaxed">
             <p>

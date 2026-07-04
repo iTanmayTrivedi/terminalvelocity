@@ -38,7 +38,7 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-start justify-between gap-8 md:mt-16 md:flex-row md:items-end md:gap-10">
           <a
             ref={btnRef}
-            href="mailto:hi@yoshito.dev"
+            href="mailto:tanmay.trivedi.jp@gmail.com"
             data-cursor data-cursor-label="send"
             onMouseMove={(e) => {
               const r = btnRef.current!.getBoundingClientRect();
@@ -49,7 +49,7 @@ export function Footer() {
             style={{ transform: `translate(${m.x}px, ${m.y}px)` }}
           >
             <span className="h-2 w-2 shrink-0 rounded-full bg-ink group-hover:bg-acid pulse-glow" />
-            <span className="truncate">hi@yoshito.dev</span>
+            <span className="truncate">tanmay.trivedi.jp@gmail.com</span>
             <motion.span animate={{ x: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }}>→</motion.span>
           </a>
 
@@ -61,7 +61,7 @@ export function Footer() {
         </div>
 
         <div className="mt-24 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-bone/40 md:flex-row md:items-center">
-          <span>© 2026 yoshito tanaka · all systems nominal</span>
+          <span>© 2026 tanmay trivedi · all systems nominal</span>
           <span className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-acid blink" />
             tokyo · {time}

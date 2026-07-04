@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 const GLYPHS = "アァイィウエカキクケコサシスセソタチツテトナニヌネノハマヤラワABCDEF0123456789#$%&*<>/\\";
 const KANA_NAME = "吉";
 const BOOT = [
-  { k: "sys", t: "boot://yoshito.dev — handshake ok" },
+  { k: "sys", t: "boot://tanmay.dev — handshake ok" },
   { k: "gpu", t: "shaders://aurora · scanlines · grain compiled" },
   { k: "fnt", t: "fonts://cormorant + jetbrains + zen-kaku linked" },
   { k: "net", t: "edge://workerd · region NRT · rtt 12ms" },
@@ -52,7 +52,7 @@ export function LoadingScreen() {
       const t = Math.min(elapsed / DURATION, 1);
       const eased = 1 - Math.pow(1 - t, 3);
       setProgress(eased);
-      setName(scramble("YOSHITO", eased));
+      setName(scramble("TANMAY", eased));
       setBootIdx(Math.min(Math.floor(eased * BOOT.length), BOOT.length));
 
       const rows: string[] = [];
@@ -204,7 +204,7 @@ export function LoadingScreen() {
                 {name}
               </h1>
               <p className="-mt-1 font-display text-[18vw] leading-[0.85] tracking-tighter text-stroke-acid md:text-[10vw]">
-                TANAKA
+                TRIVEDI
               </p>
             </div>
 

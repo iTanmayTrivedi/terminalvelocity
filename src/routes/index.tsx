@@ -18,9 +18,9 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Yoshito Tanaka ─ Full-Stack Engineer / Tokyo" },
+      { title: "Tanmay Trivedi ─ Full-Stack Engineer / Tokyo" },
       { name: "description", content: "Tokyo-based full-stack engineer building loud, fast, considered software. TypeScript, Rust, Postgres, WebGL." },
-      { property: "og:title", content: "Yoshito Tanaka ─ Full-Stack Engineer / Tokyo" },
+      { property: "og:title", content: "Tanmay Trivedi ─ Full-Stack Engineer / Tokyo" },
       { property: "og:description", content: "Tokyo-based full-stack engineer. Loud, fast, considered software." },
     ],
   }),

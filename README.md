@@ -4,14 +4,14 @@
 
 <samp>吉田の作品集 · 職人のためのポートフォリオ</samp>
 
-# YOSHITO TANAKA
+# TANMAY TRIVEDI
 ### Full-Stack Engineer · Tokyo · ポートフォリオ
 
 <sub>TypeScript · React 19 · TanStack Start · Motion · WebAudio · WebGL-minded UI</sub>
 
 <br />
 
-![Yoshito Tanaka portfolio hero](docs/screenshots/02-hero.png)
+![Tanmay Trivedi portfolio hero](docs/screenshots/02-hero.png)
 
 <br />
 
@@ -204,7 +204,7 @@ For international teams: the same site presents as a fast, opinionated full-stac
 
 <div align="center">
 
-<samp>Built in Tokyo · 東京で制作 · © 2026 Yoshito Tanaka</samp>
+<samp>Built in Tokyo · 東京で制作 · © 2026 Tanmay Trivedi</samp>
 
 <br />
 <br />
