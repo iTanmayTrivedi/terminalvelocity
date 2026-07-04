@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { CodeRain } from "./CodeRain";
 
-const NAME = "YOSHITO";
-const SUB = "TANAKA";
+const NAME = "TANMAY";
+const SUB = "TRIVEDI";
 
 const TYPED = [
   "$ whoami",
@@ -88,7 +88,7 @@ export function Hero() {
           <span className="h-2 w-2 rounded-full bg-blood" />
           <span className="h-2 w-2 rounded-full bg-acid" />
           <span className="h-2 w-2 rounded-full bg-cyber" />
-          <span className="ml-2 text-[9px] uppercase tracking-[0.3em] text-bone/40">~/yoshito — zsh</span>
+          <span className="ml-2 text-[9px] uppercase tracking-[0.3em] text-bone/40">~/tanmay — zsh</span>
         </div>
         <div className="space-y-1">
           {lines.map((l, i) => (

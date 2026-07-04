@@ -10,7 +10,7 @@ export function EasterEggs() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [log, setLog] = useState<string[]>([
-    "yoshito.dev terminal v1.0 — type `help` for commands.",
+    "tanmay.dev terminal v1.0 — type `help` for commands.",
   ]);
   const [rave, setRave] = useState(false);
   const navigate = useNavigate();
@@ -110,7 +110,7 @@ export function EasterEggs() {
                 <span className="h-2 w-2 rounded-full bg-blood" />
                 <span className="h-2 w-2 rounded-full bg-acid" />
                 <span className="h-2 w-2 rounded-full bg-cyber" />
-                <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.3em] text-bone/50">~/yoshito · cmd</span>
+                <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.3em] text-bone/50">~/tanmay · cmd</span>
                 <span className="ml-auto font-mono text-[9px] uppercase tracking-[0.3em] text-bone/30">esc</span>
               </div>
               <div className="max-h-[40vh] overflow-y-auto px-4 py-3 font-mono text-[11px] text-bone/85">
