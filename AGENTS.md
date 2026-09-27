@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the preview error reporter's external window property unchanged while using generic internal names; the preview runtime owns that contract.
+- Keep the project Vite preset package and installation exceptions unchanged; they provide the integrated development and preview pipeline.
