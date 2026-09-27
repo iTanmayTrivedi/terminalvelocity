@@ -22,6 +22,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Tokyo-based full-stack engineer building loud, fast, considered software. TypeScript, Rust, Postgres, WebGL." },
       { property: "og:title", content: "Tanmay Trivedi ─ Full-Stack Engineer / Tokyo" },
       { property: "og:description", content: "Tokyo-based full-stack engineer. Loud, fast, considered software." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Index,
