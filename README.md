@@ -279,7 +279,7 @@ For international teams: the same site presents as a **fast, opinionated full-st
 
 [![email](https://img.shields.io/badge/tanmay.trivedi.jp@gmail.com-0a0a0a?style=for-the-badge&logo=gmail&logoColor=b4ff2e)](mailto:tanmay.trivedi.jp@gmail.com)
 &nbsp;
-[![site](https://img.shields.io/badge/live_site-visit-0a0a0a?style=for-the-badge&logo=vercel&logoColor=00e5ff)](#)
+[![site](https://img.shields.io/badge/live_site-visit-0a0a0a?style=for-the-badge&logo=vercel&logoColor=00e5ff)](https://terminalvelocity.tanmaytrivedi.dev)
 
 </div>
 
