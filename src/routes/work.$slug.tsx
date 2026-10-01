@@ -30,7 +30,7 @@ export const Route = createFileRoute("/work/$slug")({
   component: CaseStudy,
   errorComponent: ({ error }) => (
     <div className="flex min-h-screen items-center justify-center bg-ink text-bone">
-      <p className="font-mono text-xs">{error.message}</p>
+      <p className="font-mono text-xs">{error instanceof Error ? error.message : "This case study didn't load"}</p>
     </div>
   ),
   notFoundComponent: () => (
